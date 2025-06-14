@@ -88,51 +88,51 @@ módulos a través de formularios, campos los cuales son concebidos a continuaci
 Cada predio tendrá 5 módulos(campos) a rellenar, los cuales describirán o valorarán
 el estado de los edificios y recolectarán información del terreno:
 \begin{itemize}
-    \item[$\rightarrow$] Edificación: Valora el estado del edificio, desde un antejardín hasta el
-          estado de canoas bajantes.
-    \item[$\rightarrow$] Terreno: Permite recolectar información del predio, como niveles del predio,
-          el tipo de acera, el ancho de acera, etc.
-    \item[$\rightarrow$] Construcción: Permite valorar el estado actual de los inmuebles en un
-          predio.
-    \item[$\rightarrow$] Uso de suelo y patentes comerciales: Información de importancia de la o
-          las actividades económicas que se encuentren en un edificio.
-    \item[$\rightarrow$] Medidores eléctricos: Información acerca de los medidores eléctricos que
-          posee cada edificio en un predio.
+      \item[$\rightarrow$] Edificación: Valora el estado del edificio, desde un antejardín hasta el
+            estado de canoas bajantes.
+      \item[$\rightarrow$] Terreno: Permite recolectar información del predio, como niveles del predio,
+            el tipo de acera, el ancho de acera, etc.
+      \item[$\rightarrow$] Construcción: Permite valorar el estado actual de los inmuebles en un
+            predio.
+      \item[$\rightarrow$] Uso de suelo y patentes comerciales: Información de importancia de la o
+            las actividades económicas que se encuentren en un edificio.
+      \item[$\rightarrow$] Medidores eléctricos: Información acerca de los medidores eléctricos que
+            posee cada edificio en un predio.
 \end{itemize}
 Esta aplicación debe cumplir con los siguientes requerimientos funcionales, no
 funcionales y de entorno:
 \begin{itemize}
-    \item Debe correr sobre el sistema Android. Teniendo compatibilidad con versiones
-          anteriores a la versión 10.0.
-    \item Interfaz de usuario sencilla y amigable.
-    \item Deben soportar un visor de mapas que consuma una cartografía sin conexión
-          a Internet.
-    \item Tiene que consumir de un servicio externo la cartografía y las propiedades
-          con la información que hay que mostrar.
-    \item El mapa estará dividido en manzanas, las manzanas en predios, y los predios
-          en edificios. Los colores a emplear para enmarcar las divisiones serán: verde,
-          rojo y negro respectivamente.
-    \item Cada manzana posee un número único.
-    \item Debe permitir crear, modificar y eliminar mediante formularios, los 5 módulos
-          mencionados.
-    \item Compatibilidad con un futuro software de sincronización de datos, que
-          mantendrá los campos o módulos rellenados por cada consultor,
-          centralizados en una misma base de datos a nivel de empresa.
-    \item Acceso al recorrido óptimo entre predios; dada una lista de predios a visitar,
-          la localización actual del consultor y una relación de distancias entre los
-          predios, ya sea la euclidiana o una relación de distancias vectorial como en
-          para un óptimo más real.
-    \item Posibilidad de guardar un registro con previas modificaciones a los módulos,
-          en cada uno de los predios.
-    \item Como se muestra en la figura 1, cada predio deberá tener un número de
-          localización que se estructura de la forma: No. parcela + No. manzana + No.
-          distrito:
-          \begin{figure}[h]
-              \centering
-              \includegraphics[scale=0.5]{Graphics/1.png}
-              \caption{Figura 1: Descripción y delimitación del número de localización de un predio.} % Título de la figura
-              \label{fig:figura1}
-          \end{figure}
+      \item Debe correr sobre el sistema Android. Teniendo compatibilidad con versiones
+            anteriores a la versión 10.0.
+      \item Interfaz de usuario sencilla y amigable.
+      \item Deben soportar un visor de mapas que consuma una cartografía sin conexión
+            a Internet.
+      \item Tiene que consumir de un servicio externo la cartografía y las propiedades
+            con la información que hay que mostrar.
+      \item El mapa estará dividido en manzanas, las manzanas en predios, y los predios
+            en edificios. Los colores a emplear para enmarcar las divisiones serán: verde,
+            rojo y negro respectivamente.
+      \item Cada manzana posee un número único.
+      \item Debe permitir crear, modificar y eliminar mediante formularios, los 5 módulos
+            mencionados.
+      \item Compatibilidad con un futuro software de sincronización de datos, que
+            mantendrá los campos o módulos rellenados por cada consultor,
+            centralizados en una misma base de datos a nivel de empresa.
+      \item Acceso al recorrido óptimo entre predios; dada una lista de predios a visitar,
+            la localización actual del consultor y una relación de distancias entre los
+            predios, ya sea la euclidiana o una relación de distancias vectorial como en
+            para un óptimo más real.
+      \item Posibilidad de guardar un registro con previas modificaciones a los módulos,
+            en cada uno de los predios.
+      \item Como se muestra en la figura 1, cada predio deberá tener un número de
+            localización que se estructura de la forma: No. parcela + No. manzana + No.
+            distrito:
+            \begin{figure}[h]
+                  \centering
+                  \includegraphics[scale=0.5]{Graphics/localizacion_predio.png}
+                  \caption{Descripción y delimitación del número de localización de un predio.} % Título de la figura
+                  \label{fig:figura1}
+            \end{figure}
 \end{itemize}
 Por ende el problema de este trabajo puede ser enunciado como la carencia de una
 aplicación móvil que permita automatizar el proceso de encuesta a propiedades y
@@ -140,7 +140,7 @@ recogida de información mediante formularios, que además cumpla con los
 requerimientos funcionales, no funcionales y de entorno planteados anteriormente.
 Dando paso a la siguiente pregunta científica:
 \textbf{¿Será posible desarrollar una aplicación móvil que cumpla con los requerimientos
-    planteados en este epígrafe y así dar solución al problema planteado?}
+      planteados en este epígrafe y así dar solución al problema planteado?}
 
 
 
@@ -155,42 +155,42 @@ podrían ser optimizar el camino que debe recorrer el consultor para visitar los
 predios que le fueron asignados. De aquí se derivan varios objetivos específicos o
 parciales:
 \begin{itemize}
-    \item Investigar las distintas plataformas para el desarrollo de aplicaciones móviles.
-          Ventajas y desventajas.
-    \item Analizar las herramientas existentes para el trabajo con mapas en
-          concordancia con el entorno de desarrollo seleccionado y que permita
-          visualizar cartografía offline.
-    \item Diseñar una arquitectura extensible, haciendo uso de los principios del
-          desarrollo SOLID1 y empleando las buenas prácticas.
-    \item Brindar mecanismos de acceso a los sensores del dispositivo móvil para una
-          recopilación de datos más completa, dígase GPS2
-          , cámara, como los
-          principales.
-    \item Cumplir con los requerimientos de las aplicaciones móviles pedidos por el
-          cliente.
+      \item Investigar las distintas plataformas para el desarrollo de aplicaciones móviles.
+            Ventajas y desventajas.
+      \item Analizar las herramientas existentes para el trabajo con mapas en
+            concordancia con el entorno de desarrollo seleccionado y que permita
+            visualizar cartografía offline.
+      \item Diseñar una arquitectura extensible, haciendo uso de los principios del
+            desarrollo SOLID1 y empleando las buenas prácticas.
+      \item Brindar mecanismos de acceso a los sensores del dispositivo móvil para una
+            recopilación de datos más completa, dígase GPS2
+            , cámara, como los
+            principales.
+      \item Cumplir con los requerimientos de las aplicaciones móviles pedidos por el
+            cliente.
 \end{itemize}
 
 \section{Estructura del trabajo}
 Este trabajo está compuesto por cuatro capítulos estructurados de la siguiente
 manera:
 \begin{itemize}
-    \item Capítulo I: El primer capítulo presenta una breve introducción al tema, la
-          motivación y justificación del mismo, la formulación del problema y los objetivos
-          principales, concluyendo este capítulo con la estructura del trabajo.
-          2 Sistema que permite posicionar cualquier objeto sobre la Tierra con una precisión de hasta
-          centímetros, aunque lo común son unos pocos metros.
-          1 Acrónimo que agrupa 5 principios clave para el desarrollo eficiente, replicable, mantenible y
-          escalable de software.
-    \item Capítulo II: Acá se analizan diferentes sistemas que ofrecen funcionalidades
-          similares a la propuesta a desarrollar con el objetivo de explicar sus ventajas y
-          desventajas. Se analizan además diferentes plataformas para el desarrollo de
-          aplicaciones móviles y algunas tecnologías para el trabajo cartográfico.
-    \item Capítulo III: Se verifica de una manera teórico-computacional la propuesta de
-          solución. Además se dan algunos detalles de implementación que se consideran
-          atractivos de explicar.
-    \item Capítulo IV: En este capítulo se muestra el correcto funcionamiento del software
-          creado y el cumplimiento de los objetivos del trabajo, con varias pruebas que se le
-          hacen a la aplicación y a las distintas herramientas implementadas. Por último
-          contamos con las conclusiones y recomendaciones de esta tesis.
+      \item Capítulo I: El primer capítulo presenta una breve introducción al tema, la
+            motivación y justificación del mismo, la formulación del problema y los objetivos
+            principales, concluyendo este capítulo con la estructura del trabajo.
+            2 Sistema que permite posicionar cualquier objeto sobre la Tierra con una precisión de hasta
+            centímetros, aunque lo común son unos pocos metros.
+            1 Acrónimo que agrupa 5 principios clave para el desarrollo eficiente, replicable, mantenible y
+            escalable de software.
+      \item Capítulo II: Acá se analizan diferentes sistemas que ofrecen funcionalidades
+            similares a la propuesta a desarrollar con el objetivo de explicar sus ventajas y
+            desventajas. Se analizan además diferentes plataformas para el desarrollo de
+            aplicaciones móviles y algunas tecnologías para el trabajo cartográfico.
+      \item Capítulo III: Se verifica de una manera teórico-computacional la propuesta de
+            solución. Además se dan algunos detalles de implementación que se consideran
+            atractivos de explicar.
+      \item Capítulo IV: En este capítulo se muestra el correcto funcionamiento del software
+            creado y el cumplimiento de los objetivos del trabajo, con varias pruebas que se le
+            hacen a la aplicación y a las distintas herramientas implementadas. Por último
+            contamos con las conclusiones y recomendaciones de esta tesis.
 \end{itemize}
 
