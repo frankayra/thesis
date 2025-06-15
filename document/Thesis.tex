@@ -14,6 +14,16 @@
 \usepackage{xcolor}
 \usepackage{multicol}
 \usepackage{graphicx}
+\usepackage{mdframed} 
+\definecolor{mygrey}{rgb}{0.95,0.95,0.95} % Un gris claro para el fondo
+\mdfsetup{
+    backgroundcolor=mygrey,
+    linewidth=0pt, % Sin borde
+    innertopmargin=1em, % Margen interno superior
+    innerbottommargin=1em, % Margen interno inferior
+    innerleftmargin=1.5em, % Margen interno izquierdo (para simular indentación)
+    innerrightmargin=1.5em % Margen interno derecho
+}
 \floatstyle{plaintop}
 \restylefloat{table}
 \addbibresource{Bibliography.bib}
