@@ -138,9 +138,9 @@ En la siguiente imagen se muestra la estructura del proyecto:
 En la figura anterior (Ver figura \ref{fig:figura14})se pueden apreciar las diferentes capas de la arquitectura MVVM bien definidas,
 representadas por las carpetas "Model", "View" y "ViewModel" que contienen la parte del código relacionada con la capa de arquitectura
 que su nombre indica:\\\\
-\textbf{Model}\\
+\textbf{Model}\label{item:Model}\\
 Aquí se encuentra la capa que abarca los datos y el acceso a ellos. Se hace uso de la librería sqflite \cite{sqflite} como mediador de comunicación
-con bases de datos SQLite. Se encierra el modelo de datos en una jerarquía de clases reutilizable y expandible que tiene como padre la clase abstracta \textbf{DBTable},
+con bases de datos SQLite. Se encierra el modelo de datos en una jerarquía de clases reutilizable y expandible que tiene como padre la clase abstracta \textbf{InventarioDbTable},
 de la cuál las clases que representan las tablas del modelo de datos del problema heredan, obligándoles a implementar propiedades y métodos que proporcionarán
 el formato de los datos que requiere sqflite para insertar en sus tablas correspondientes. Estas clases asociadas a las tablas de la Base de Datos
 son \textbf{Predio}, \textbf{Edificio} y \textbf{Propiedad}.
@@ -359,7 +359,7 @@ La validación de los formularios ocurre en los respectivos controladores, o sea
 invoca el método validate() y se validan todos los campos del formulario, si son válidos, se procede a ver si existe un caso de sobrescritura, o de añadir un edificio sobre un predio que aún no está en la Base de Datos, etc,
 y en caso de no haber problemas, se le pasa la tupla al modelo en forma de clase y el modelo lo convierte en un Map<String, dynamic> y lo introduce en la base de datos, el Model responde al ModelView que si se pudo guardar la tupla,
 por ende el ModelView le deja saber al View lo mismo, y este último le muestra un mensaje al usuario de confirmación de operación.
-\subsection{Restricciones y visibilidad de campos de los formularios}
+% \subsection{Restricciones y visibilidad de campos de los formularios}
 
 \subsection{Exportación e importación de archivos}
 La única forma de mostrar mapas sin conexión a Internet con Flutter(sin descarga inicial siquiera) es con la librería flutter\_map\_mbtiles, y esta lee los archivos de mapas en formato ".mbtiles" por lo que fue obligatorio el uso de este tipo de formato de archivo de mapa
@@ -367,4 +367,37 @@ sqlite. Luego, para la importación de capas de delimitaciones encima del mapa b
 de una manera rápida y efectiva, además de la facilidad de lectura y extracción de datos, leyendo estos archivos como json con librerías built-in de Dart. Ya se expusieron las razones de por qué se escogió SQLite como sistema gestor de bases de datos.
 Revisar el formato de entrada del las delimitaciones en archivos geojsonen a inicios de este capítulo(Ver \ref{item:importaciongeojson}) para su correcta importación
 \subsection{Extensión del código}
-\section{Conclusiones del capítulo}
+En esta subsección se hablará un poco más de la capa Model y de como extender el modelo de datos en caso que se desee, ya que en realidad los datos son la característica principal de una aplicación de categoría SIG.
+La capa Model esta compuesta por 3 archivos, 'db\_debug.dart', 'db\_general\_management.dart' y 'file\_management.dart', pero en realidad donde se concentra el diseño del modelo es en 'db\_general\_management.dart'. Se diseñó una jerarquía de clases con el objetivo de
+entregar un proyecto expansible y reutilizable, la cual consta, como ya se explicó a grandes rasgos en\ref{item:Model}de una clase abstracta 'InventarioDbTable' que tiene la implementación de las operaciones de eliminación, actualización e inserción, basados en propiedades que debe
+implementar o proveer toda clase que herede de 'InventarioDbTable'. Al crear una clase que hereda de InventarioDbTable, ya que los parámetros 'tableName' y 'primaryKeysWhere' son obligatorios, Dart exigirá que en el constructor de las clases herederas se llame al constructor de su padre
+y provea estos dos parámetros mediante la palabra reservada de Dart 'super' y la invocación con los paréntesis, haciendo inclusión de dichos datos mediante el uso de los parámetros de nombre de Dart. Por otra parte, hay una propiedad o 'getter' y un método en la clase 'InventarioDbTable' que al
+una clase heredar de esta clase abstracta, Dart te exigirá implementar en la clase heredera. El getter se llama 'primaryKeysWhereArgs' y el método se llama 'toMap()' y junto con los demás parámetros y la definición de la tabla en SQLite, se tiene todo lo necesario para que se ejecute automáticamente la inserción, actualización y eliminación sobre esta nueva tabla.
+\\\\
+\textbf{tableName}\\
+Este parámetro es para establecer una conexión directa con la tabla que representa el modelo. Debe ser el nombre exacto de la tabla que se declare en sqlite.
+\\\\
+\textbf{toMap()}\\
+Este método por convenio debe devolver un Map<String, dynamic> que contenga en sus 'keys' los nombres exactos de los campos de la tabla sqlite que se declaró y en los 'values', los valores asociados que deben ser del mismo tipo que sus campos respectivos declarados en la tabla sqlite asociada.
+Este método se usa para la inserción y la actualización.
+\\\\
+\textbf{primaryKeysWhere} y \textbf{primaryKeysWhereArgs}\\
+A la hora de hacer consultas con sqflite, estas se declaran de la forma:
+\begin{mdframed}
+    database.query(tableName, where: "idPredio = ? AND noEdificio = ?", whereArgs: [predio.idPredio, edificio.noEdificio]);
+\end{mdframed}
+El objetivo es entregar en este formato: String y List<dynamic> respectivamente las claves primarias de la nueva tabla. Para una idea más clara, en la figura \ref{} se tiene la implementación que
+hace la clase 'Encuestador' del Modelo de la clase abstracta 'InventarioDbTable'
+\\\\
+\begin{figure}[h]
+    \centering
+    \includegraphics[]{Graphics/Capitulo 3/implementacion_InventarioDBTable.png}
+    \caption{Implementación de la clase abstracta 'InventarioDbTable' por la clase 'Encuestador'}
+    \label{fig:figura17}
+\end{figure}
+
+
+Completando esto y por supuesto la declaración de la tabla correspondiente en SQLite se tendrá una nueva entidad integrada en el Modelo de Datos
+\\
+% \\\\
+% \section{Conclusiones del capítulo}
