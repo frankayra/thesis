@@ -33,7 +33,7 @@ la aplicación. Las mismas se explican a continuación:
                     un archivo con extensión ".mbtiles" para importarlo en la aplicación. Esto realizará una copia del archivo seleccionado hacia
                     la carpeta de mapas de la aplicación en el almacenamiento del dispositivo('CADIC/Maps'). Para que la importación surta efecto,
                     se deberá cambiar rápidamente de pestaña o cerrar y abrir la aplicación.
-              \item \textbf{Importar capa de Delimitaciones}: También abrirá una ventana de selección de archivos, pero esta vez esperando que
+              \item \label{item:importaciongeojson}\textbf{Importar capa de Delimitaciones}: También abrirá una ventana de selección de archivos, pero esta vez esperando que
                     el usuario localice un archivo con extensión ".geojson". Dentro del archivo deben encontrarse definiciones de polígonos, y
                     dentro de cada polígono, en el apartado de "properties" podrá incluirse la etiqueta individual que se deseará mostrar para
                     cada polígono, esta se mostrará en el centro de cada polígono al renderizarse en el mapa. En el caso de una capa de polígonos
@@ -168,7 +168,7 @@ para que los guarde en la base de datos, y luego de eso, haciendo uso del propic
     forma de ejecutar una función en un punto del código deseado confiándole dicha función a un método u objeto pasándola como parámetro} de Flutter, se actualiza la interfaz
 visual en consecuencia. Cabe destacar que por motivos de organización cada subormulario tiene su propio controllador en la capa de ModelView.
 \\
-\section{Modelo de Base de Datos}
+\section{Modelo de Base de Datos} \label{section:dataModel}
 Dada la naturaleza del problema: desarrollo en Android, desconexión de internet; y la naturaleza de Flutter, se escogió trabajar con el sistema gestor de bases de datos SQLite,
 que ofrece simplicidad y una buena integración con Flutter a través de la librería sqflite, que a pesar de ser desarrollada por la comunidad, es un paquete muy utilizado y
 testeado en ambientes de desarrollo. Por otra parte, solo hay que enfocarse en el modelado de las entidades y relaciones presentes en el problema, ya que una vez construida
@@ -285,15 +285,86 @@ y una sintaxis al estilo C, que puede compilar tanto a código nativo como a Jav
 Este paqute se utilizó para la facilitación de la funcionalidad de obtener la geolocalización en tiempo real del dispositivo Android sobre el que está corriendo la aplicación.
 Este paquete ofrece una gran facilidad en el manejo de los permisos de geolocalización y clases y métodos bastante útiles para el trabajo con posiciones geográficas.
 \subsection{Paquete latlong2}
-
+LatLong es un paquete que incorpora Geodesia y Cálculos Geográficos para Dart,
+proporciona una biblioteca liviana para el uso de proyecciones LatLong, o sea latitud y
+la longitud, las unidades que representan las coordenadas en el sistema de coordenadas
+geográficas. \cite{latlong2}
 \subsection{Paquetes file\_picker e image\_picker}
+File Picker es un paquete para iOS y Android que permite usar el explorador de archivos nativo para seleccionar uno o varios archivos con soporte de filtrado de extensiones,
+de igual manera Image Picker es un plugin de Flutter que permite seleccionar archivos,
+en este caso imágenes de la biblioteca de imágenes y tomar nuevas fotos con la cámara.
+
 \subsection{Paquete permission\_handler}
+Este paquete fue clave en el manejo de permisos de escritura de archivos. La aplicación para iniciarse, por comodidad y organización debe obtener los permisos de manejo y escritura sobre el sistema de archivos
+del sistema de archivos del dispositivo, y en Android, los permisos de escritura en las últimas versiones han cambiado mucho, volviéndose una odisea tener en cuenta el tipo de permiso que se debe pedir
+según la versión de sdk o de sistema operativo que tenga el dispositivo. Este paquete es bastante útil para el manejo de permisos, incluyendo incluso funciones que redireccionan al usuario hacia los ajustes del
+dispositivo para que concedan el permiso, en caso que no haya otra opción.
 \subsection{Paquete image}
+En SQLite, el almacenamiento de imágenes tiene un problema, y es que el tamaño de archivos multimedia en campos "BLOB"
+\footnote{Un campo BLOB, o Objeto Binario Grande, es un tipo de campo en bases de datos utilizado para almacenar datos binarios de gran tamaño, como imágenes, audio, video o documentos}
+tiene un límite de tamaño. Se sugiere almacenar en campos BLOB archivos de no más de 5mb. Por esta razón fue necesario usar el paquete image\cite{image} para procesar y comprimir las imágenes mayores de 1.8mb, que ya sería un tamaño no tan prudente
+para un archivo a ser almacenado en un campo BLOB de SQLite.
 \section{Detalles de implementación}
-\subsection{Subformularios }
+En esta subsección se explicará de cara al desarrollador, la implementación de cada uno de los elementos visuales de los subformularios en la capa o componente View, y la relación con sus controladores en la capa o componente ModelView. También se explicarán .\\\\
+\subsection{Subformularios}
+Como ya se mencionó, existen varios subformularios que integran la funcionalidad de Registro en la aplicación Inventario. Ellos son Predio, Edificio y Propiedad. Estos solo están integrados por la parte visual de sus respectivos campos, y una mínima implementación
+de funciones pequeñas de validación de campos, como comprobaciones de nulidad, o si el valor que se introdujo en un campo es entero, o verificar la cantidad de cifras de un número no es correcta. En la siguiente figura se presenta un fragmento del código del subformulario
+Predio donde se puede ver parte de la implementación de algunos campos del mismo(ver Figura \ref{fig:figura16}).
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.5]{Graphics/Capitulo 3/formulario_predio.png}
+    \caption{Fragmento de la implementación del subformulario Predio} % Título de la figura
+    \label{fig:figura16}
+\end{figure}
+
+Como ya se analizó en el epígrafe \ref{section:dataModel}, se tienen varios predios, donde cada uno de estos predios puede contener varios
+edificios, y cada uno de estos edificios puede contener varias propiedades. Luego para agregar un edificio a la base de datos se debe prefijar un predio
+y para agregar una propiedad a la base de datos se debe prefijar un predio y un edificio dentro de ese predio.\\
+A nivel global, durante toda la ejecución, se mantiene un objeto de manera estática que tiene tres valores enteros, que también pueden ser null.
+Esta variable se llama 'formGlobalStatusWrapper' o simplemente 'formGlobalStatus', y los 3 valores enteros que guarda son los identificadores del predio,
+el edificio y la propiedad que se estén editando. Por ejemplo, si:
+\begin{itemize}
+    \item formGlobalStatus['idPredio'] = 1000000001, formGlobalStatus['noEdificio'] = null y formGlobalStatus['noLocal'] = null: Significa que se está trabajando sobre el
+          predio con ese número de localización, pero no se está editando ningún edificio existente, y por ende ninguna propiedad.
+    \item formGlobalStatus['idPredio'] = 1000000001, formGlobalStatus['noEdificio'] = 1 y formGlobalStatus['noLocal'] = null: Significa que se está trabajando sobre el edificio
+          número 1 del predio 1000000001
+    \item formGlobalStatus['idPredio'] = 1000000001, formGlobalStatus['noEdificio'] = 1 y formGlobalStatus['noLocal'] = 34: Significa que se está trabajando sobre la propiedad 34 del edificio
+          número 1 del predio 1000000001.
+\end{itemize}
+Por lo tanto estas tres variables van a definir básicamente sobre qué entidades se están trabajando. Ahora, haciendo uso del patrón de utilización de funciones callback, se realizó un sistema de
+eventos, donde se permite la posibilidad de, dentro de esta estructura 'formGlobalStatus' suscribirse a los eventos de asignación de las variables formGlobalStatus['idPredio'], formGlobalStatus['noEdificio'] y formGlobalStatus['noLocal']
+a funciones que, según qué predio, edificio, o propiedad esté activa, renderizar el formulario en consecuencia.
 \subsection{Reactividad de los formularios}
+Luego, cada subformulario, tiene su propio controlador, declarado como una variable. El controlador,
+que forma parte de la capa ModelView, estaría abstraído de lo que ocurre con la interfaz del formulario. El controlador simplemente guardaría el estado
+de las variables. Cada formulario, al sí tener control de su estado, puede acceder a él para en base a si hay algún cambio, renderizar su interfaz visual en consecuencia.
+Esto se logra haciendo uso del principio de llaves de widgets en Flutter, que plantea que si una llave de un widget cambia, este widget deberá ser renderizado nuevamente
+Por ejemplo, en la Figura \ref{fig:figura16} podemos observar como cada uno de los campos de Predio, obtiene el valor del estado de su variable, y lo establece como
+valor inicial del campo y también lo establece como llave a ese campo, diciéndole a Flutter que cuando este valor cambie, debe cambiar también la interfaz visual. Esto provoca que
+al cambiarse el estado global de la aplicación(variable formGlobalStatus), se desencandenen una serie de acciones al intentar renderizar los 3 subformularios:
+\begin{enumerate}
+    \item Cada subformulario inicializa su controlador
+    \item El Controlador de Predio le pide al Modelo que busque el predio con número de localización igual a formGlobalStatus['idPredio']
+    \item El Controlador de Edificio le pide al Modelo que busque todos los Edificios que tienen como número de localización: formGlobalStatus['idPredio'] para asi tenerlos listos para la UI.
+    \item El Controlador de Edificio, en caso de que formGlobalStatus['noEdificio] != null, inicializa su estado con los datos del edificio que esté dentro del predio con número de localización igual a
+          formGlobalStatus['idPredio'] y con número de Edificio igual a formGlobalStatus['noEdificio'].
+    \item $\cdots$
+    \item El View de Edificio, al comenzar a renderizarse, accede al estado de su Controlador y autorrellena el formulario en caso de tener variables con valores. Además muestra la lista de edificios del predio en el tope del formulario como elementos visuales para ser seleccionados
+    \item $\cdots$
+\end{enumerate}
+El mismo proceso ocurre con Propiedad y su Controlador, pero esta vez chequeando la variable formGlobalStatus['noLocal'] y encontrando las propiedades que pertenezcan al edificio con número formGlobalStatus['noEdificio']\\
 \subsection{Validación de formularios}
+La validación de los formularios ocurre en los respectivos controladores, o sea, en la capa ModelView. El botón de la UI invoca la función del controlador 'validateForm', este al tener la llave del formulario del view,
+invoca el método validate() y se validan todos los campos del formulario, si son válidos, se procede a ver si existe un caso de sobrescritura, o de añadir un edificio sobre un predio que aún no está en la Base de Datos, etc,
+y en caso de no haber problemas, se le pasa la tupla al modelo en forma de clase y el modelo lo convierte en un Map<String, dynamic> y lo introduce en la base de datos, el Model responde al ModelView que si se pudo guardar la tupla,
+por ende el ModelView le deja saber al View lo mismo, y este último le muestra un mensaje al usuario de confirmación de operación.
 \subsection{Restricciones y visibilidad de campos de los formularios}
+
 \subsection{Exportación e importación de archivos}
+La única forma de mostrar mapas sin conexión a Internet con Flutter(sin descarga inicial siquiera) es con la librería flutter\_map\_mbtiles, y esta lee los archivos de mapas en formato ".mbtiles" por lo que fue obligatorio el uso de este tipo de formato de archivo de mapa
+sqlite. Luego, para la importación de capas de delimitaciones encima del mapa base, se escogió el formato gegojson por la claridad que ofrece, además de la cantidad de herramientas que existen hoy en día que crean polígonos
+de una manera rápida y efectiva, además de la facilidad de lectura y extracción de datos, leyendo estos archivos como json con librerías built-in de Dart. Ya se expusieron las razones de por qué se escogió SQLite como sistema gestor de bases de datos.
+Revisar el formato de entrada del las delimitaciones en archivos geojsonen a inicios de este capítulo(Ver \ref{item:importaciongeojson}) para su correcta importación
 \subsection{Extensión del código}
 \section{Conclusiones del capítulo}
