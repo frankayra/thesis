@@ -138,27 +138,157 @@ En la siguiente imagen se muestra la estructura del proyecto:
 En la figura anterior (Ver figura \ref{fig:figura14})se pueden apreciar las diferentes capas de la arquitectura MVVM bien definidas,
 representadas por las carpetas "Model", "View" y "ViewModel" que contienen la parte del código relacionada con la capa de arquitectura
 que su nombre indica:\\\\
-\textbf{Model}
+\textbf{Model}\\
 Aquí se encuentra la capa que abarca los datos y el acceso a ellos. Se hace uso de la librería sqflite \cite{sqflite} como mediador de comunicación
-con bases de datos SQLite. Se encierra el modelo de datos en una jerarquía de clases reutilizable y expandible que tiene como padre la clase abstracta "DBTable",
+con bases de datos SQLite. Se encierra el modelo de datos en una jerarquía de clases reutilizable y expandible que tiene como padre la clase abstracta \textbf{DBTable},
 de la cuál las clases que representan las tablas del modelo de datos del problema heredan, obligándoles a implementar propiedades y métodos que proporcionarán
 el formato de los datos que requiere sqflite para insertar en sus tablas correspondientes. Estas clases asociadas a las tablas de la Base de Datos
-son "Predio", "Edificio" y "Propiedad".
-\\
-\textbf{View}
+son \textbf{Predio}, \textbf{Edificio} y \textbf{Propiedad}.
+\\\\
+\textbf{View}\\
 El componente Vista está dividido en dos partes, las pantallas o "Screens" y los "Widgets"
 \footnote{Los widgets son básicamente componentes de Flutter utilizados para crear la interfaz de usuario de
     la aplicación}.
 Existen solo dos pantallas en este caso, la pantalla del mapa sin conexión, que es donde se hace uso de las librerías flutter\_map y flutter\_map\_mbtiles para
-obtener el componente que renderiza el mapa a partir de un archivo con formato/extensión ".mbtiles", y la pantalla del formulario, donde se hace uso de la gran.
-\\
-\textbf{ModelView}
+obtener el componente que renderiza el mapa a partir de un archivo con formato/extensión ".mbtiles", y la pantalla del formulario, donde se hace uso de la gran
+cantidad de Widgets predefinidos que posee Flutter para los diversos campos de los subformularios. Además se definen subdirectorios para separar componentes que se
+usan en ambas pantallas. Las partes que se usan para conformar la pantalla del formulario se encuentran dentro del subdirectorio \textbf{Form Sections} y son los
+subformularios Predio, Edificio y Propiedad, que usan individualmente componentes/widgets de Flutter para los campos que se asocian con los datos de cada una de
+las tablas que representan. Al mismo tiempo, la funcionalidad que se declara dentro del subdirectorio \textbf{Map utilities} es la declaración de un widget
+que representa una capa de delimitaciones, el cuál se encarga de filtrar los polígonos que representan predios y calcular los centroides y pintarlos\\
+Por otra parte, los Widgets que se definen son para el uso mayormente en la pantalla del formulario. Algunos de ellos son campos de formulario personalizados que
+ofrecen una validación y son reactivos de acuerdo a lo que se necesita. Estos son los campos de fecha e imagen, además de algunos widgets que ayudan con el flujo
+de procesos de la interfaz visual.
+\\\\
+\textbf{ModelView}\\
+En este componente de la arquitectura está ubicado mayormente el estado de las variables de los formularios y la validación de los mismos. Los formularios se encargan
+desde el componente Vista de mantener los datos de su controlador correspondiente actualizados a medida que cambian según la actividad del usuario en la interfaz,
+y al usuario presionar en un boton de Guardar, el controlador correspondiente del componente ModelView se encarga de validar los datos, enviárselos al componente Modelo
+para que los guarde en la base de datos, y luego de eso, haciendo uso del propicio patrón de utilización de funciones de callback\footnote{Funcion de callback es una
+    forma de ejecutar una función en un punto del código deseado confiándole dicha función a un método u objeto pasándola como parámetro} de Flutter, se actualiza la interfaz
+visual en consecuencia. Cabe destacar que por motivos de organización cada subormulario tiene su propio controllador en la capa de ModelView.
 \\
 \section{Modelo de Base de Datos}
+Dada la naturaleza del problema: desarrollo en Android, desconexión de internet; y la naturaleza de Flutter, se escogió trabajar con el sistema gestor de bases de datos SQLite,
+que ofrece simplicidad y una buena integración con Flutter a través de la librería sqflite, que a pesar de ser desarrollada por la comunidad, es un paquete muy utilizado y
+testeado en ambientes de desarrollo. Por otra parte, solo hay que enfocarse en el modelado de las entidades y relaciones presentes en el problema, ya que una vez construida
+la base de datos localmente, esta se exporta como archivo y se consume por un servicio externo, el cuál está fuera del margen de esta tesis.\\
+También es importante mencionar que se hizo una variación en el modelo de datos de la aplicación anterior, ya que existían conceptos redundantes que podían causar confusión y
+falta de claridad, pensando en primera instancia en los propios encuestadores, que son los futuros usuarios que utilizarán la aplicación final. En el modelo anterior existían
+cinco módulos los cuáles describen cada uno una entidad sobre la cuál recoger información, y la propia información a recoger. Los cinco módulos y las respectivas entidades sobre
+las que recogían información eran:
+
+\begin{table}[h!]
+\centering
+\caption{Módulos comprendidos en la aplicación y modelo de datos anteriores}
+\label{tab:modulosAnteriores} % Etiqueta para referenciar la tabla más adelante
+\begin{tabular}{|r|l|}
+    \toprule
+    \textbf{Módulo}                     & \textbf{Entidad que encuesta}                      \\
+    \midrule
+    Terreno                             & Información sobre el Predio                        \\
+    Construcción                        & Información sobre los edificios del Predio         \\
+    Medidores Eléctricos                & Información sobre los edificios del Predio         \\
+    Edificación                         & Información sobre los edificios del Predio         \\
+    Uso de Suelo y Patentes Comerciales & Información sobre las propiedades de cada Edificio \\
+    \bottomrule % Línea horizontal inferior (requiere booktabs)
+\end{tabular}
+\end {table}
+Por ende, como se puede observar, existían 3 módulos de datos referenciando a la misma entidad, Edificio, por lo que se decidió factorizar estos módulos, agrupándolos en
+\textbf{Predio}, \textbf{Edificio}, \textbf{Propiedad} y \textbf{Encuestador}.
+Luego, la base de datos que modela el problema es bastante simple; en la figura \ref{fig:figura15} se muestra el diagrama Entidad-Relación del modelo de Datos:
+\pagebreak
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.5]{Graphics/Capitulo 3/DiagramaER.png}
+    \caption{Diagrama Entidad-Realción del modelo de datos.} % Título de la figura
+    \label{fig:figura15}
+\end{figure}
+Cabe destacar que por motivos de optimización, en los campos de selección de una lista fija de valores como por ejemplo lo es el caso de "materialFachada" en la entidad Edificio, se almacena solo un valor entero que representa el índice de
+la lista asociado con el valor que representa. Por ejemplo en este caso si el edificio que se está encuestando tiene un material de fachada Prefabricado, como en la lista de posibles materiales en la fachada, este valor es asociado con el índice 2,
+pues ese sería el valor que tomaría este campo, en lugar de almacenar el texto completo "Prefabricado". Tener en cuenta también que no siempre los índices que correponden al valor siguen una secuencia, por ejemplo en el propio campo de materialFachada,
+se tiene el valor 'No visible' cuyo índice asociado sería 999, teniendo esta lista solamente 8 elementos. En cada campo de selección se especificará la lista de valores con sus índices numéricos asociados.
 \subsection{Predio}
+En el modelo de datos, \textbf{Predio} es la única entidad fuerte, o sea, la existencia de un predio no depende de la existencia de ninguna otra entidad del modelo. Estos son los campos/variables que incluye una tupla de Predio:\\\\
+\underline{idPredio}: Campo de tipo entero de 10 cifras. LLave primaria de la entidad \textbf{Predio}. Es el número de localización del predio, el cuál es único así que puede usarse como identificador.\\
+\underline{nivelPredio1}, \underline{nivelPredio2} y \underline{nivelPredio3}: Campos numéricos, aceptan decimales, los cuáles se refieren a "la
+diferencia de altura del acceso principal del edificio al punto de intersección entre la acera y el vértice"\\
+\underline{acera}: Campo de tipo entero que dice el estado de la acera de un predio. Representa el índice de la opción que se escoja de la siguiente lista de opciones: [0: 'No existe', 1: 'Bueno', 2: 'Regular', 3: 'Malo']. Por ejemplo,
+si este campo tiene valor 1 en un predio, significa que el estado de la acera de ese predio es \textbf{bueno}\\
+\underline{anchoAcera}: Campo numérico que acepta decimales. Representa el ancho de acera que hay frente al predio.\\
+\underline{observacionesTerreno}: Texto describiendo las observaciones hechas por el encuestador sobre el terreno del predio.\\\\
 \subsection{Edificio}
+Edificio es una entidad débil, la cuál posee una relación de dependencia de identificación con la entidad Predio, o sea, que una tupla de Edificio depende de la existencia de una tupla de Predio.
+Estos son los campos/variables en la entidad Edificio:\\\\
+- \underline{idPredio}, \underline{noEdificio}: Llaves primarias, ambas de tipo entero. idPredio a su vez es clave foránea y apunta hacia la entidad Predio.\\
+- \underline{distrito}: Campo de tipo entero. Representa el índice del distrito al cuál pertenece el edificio, de la lista de distritos siguiente: [1: 'Carmen', 2: 'Merced', 3: 'Hospital', 4: 'Catedral', 5: 'Zapote', 6: 'San Francisco', 7: 'Uruca', 8: 'Mata Redonda', 9: 'Pavas']\\
+- \underline{cantidadPisos}: Campo de tipo entero. Cantidad de pisos del edificio.\\
+- \underline{cantidadSotanos}: Campo de tipo entero. cantidad de pisos por debajo del nivel de la acera.\\
+- \underline{antejardin}: Campo de tipo entero. Evalúa la existencia de al menos 1/3 de área verde en la zona del antejardín. Representa un índice asociado a la lista [0: 'No existe', 1: 'Si existe', 996: 'En construcción', 998: 'No aplica']\\
+- \underline{materialFachada}: Campo de tipo entero. Evalúa el material predominante en la fachada del edificio. Representa el índice del material que le corresponde de la lista: [1: 'Bloques y Concreto', 2: 'Prefabricado', 3: 'Vidrio y Metal', 4: 'Ladrillo', 5: 'Madera', 6: 'Mixto', 998: 'No aplica', 999: 'No visible']\\
+- \underline{canoasBajantes}: Campo de tipo entero. Asociado a un índice de la lista: [0: 'No existe', 1: 'Cumple', 2: 'No cumple', 998: 'No aplica']\\
+- \underline{observacionesEdificacion}: Texto describiendo las observaciones acerca de la edificación.\\
+- \underline{estadoInmueble}: Campo de tipo entero. Asociado a un índice de la lista: [1: "Óptimo", 2: "Muy Bueno", 3: "Bueno", 4: "Intermedio", 5: "Regular", 6: "Deficiente", 7: "Malo", 8: "Muy Malo", 9: "Demolición", 998: "No Aplica"]\\
+- \underline{imagenConstruccion}: Campo de tipo bytes que almacena una imagen referente a la construcción del edificio.\\
+- \underline{cantidadMedidores}: Campo de tipo entero. Catidad de medidores eléctricos en el edificio.\\
+- \underline{observacionesMedidores}: Texto describiendo las observaciones acerca de los medidores del edificio.\\
+- \underline{observacionesConstruccion}: Texto describiendo las observaciones acerca de la construcción del edificio.\\
 \subsection{Propiedad}
+Propiedad es una entidad débil también, la cuál tiene relación de dependencia de identificación con la entidad Edificio, y por ende, con la entidad Predio, es decir que una propiedad depende de la existencia de un edificio y por ende de un predio.
+Aquí se verán campos de tipo booleanos, o sea de Verdadero o Falso, que permitirán la existencia de otros campos. Por ejemplo, si el campo booleano 'tienePatenteLicores' está en falso, el campo 'numeroPatenteLicores' no se podrá rellenar. En el
+caso del campo booleano 'tienePermisoSalud', tres campos dependen de su valor para ser rellenados o no. También existen campos de selección múltiple, los cuáles serán almacenados en un campo de tipo texto, que incluya los valores de la selección
+separados por coma(","). Además, especificar que el campo de fecha 'fechaVigenciaPermisoSalud' en el formulario se tendrá la posibilidad de escoger desde un calendario y se verá la fecha en un formato bien definido, pero al almacenarse en la
+base de datos, este será recogido como un número entero, que tendrá el formato 'AAAAMMDD'; y por último, también existen campos inhabilitados, o sea, que no podrán ser rellenados por los encuestadores. Estos campos se dejarán en la base de datos
+para que sea posible añadirlo luego fácilmente por la entidad encargada en caso de querer hacerlo. \\
+- \underline{idPredio}, \underline{noEdificio}, \underline{noLocal}:
+- \underline{nivelPiso}:  Campo de tipo texto, en el que se debe anotar el número de piso en donde se encuentra localizada la actividad. Si es más de un piso, deberá anotarse el
+rango de los pisos en que está localizado, ejemplo, 1-7 (piso 1 al piso 7), o si la actividad también se desarrolla en un sótano, entonces seria, por ejemplo -1-4 (sótano 1 al piso 4). \\
+- \underline{actividadPrimaria}: Campo de tipo texto, en donde se anotará la actividad principal encontrada. \\
+- \underline{actividadComplementaria}:  Campo de tipo texto, en donde se anotará la actividad menos predominante.\\
+- \underline{estadoNegocio}: Campo de tipo texto que se basa en una selección múltiple que evaluará la situación actual del negocio. La lista de opciones a escoger es: ['En operación', 'Cierre temporal', 'Desocupado con Rótulo SE ALQUILA', 'Cierre total', 'Ha modificado la actividad autorizada(EXPRESS u otra actividad)].\\
+- \underline{nombreNegocio}:  Campo de tipo texto, en el cual se anotará el nombre de fantasía del negocio, ubicado en la publicidad (rotulo, vallas, ventanería, etc.). \\
+- \underline{cantidadParqueos}: Campo numérico, en donde se anotará la cantidad de espacios de parqueos observada con que cuenta el inmueble. \\
+- \underline{documentoMostrado}: Campo de tipo entero. Representa el índice que asocia el tipo de documento presentado que represente la patente de la actividad de la siguiente lista: [1: 'Certificado Patente', 2: 'Recibo al día(Menos de dos meses de atraso)', 3: 'Recibo atrasado(Con más de dos meses de atraso)', 4: 'Certificado Trámite "CT". Indicar el número', 5: 'No muestra documentos de patente']. \\
+- \underline{nombrePatentado}: Campo de tipo texto, en el cual se deberá anotar el nombre de quien está en la patente comercial del negocio. \\
+- \underline{numeroPatenteComercial}: Campo de tipo entero. Número de patente comercial o código específico en casos señalados puntuales. \\
+- \underline{cedulaPatentado}: Campo de tipo entero, en el cual se anotará el número de cedula que se muestra en el certificado o recibo de la patente. \\
+- \underline{nombreActividadPatente}: Campo de tipo texto en donde se anotará la actividad que aparece en la patente en un lugar específico. \\
+- \underline{tieneMasPatentes}: Campo de tipo booleano. \\
+- \underline{numeroPatente\_2}: Campo de tipo entero. Este campo estará presente solo si el campo 'tieneMasPatentes' está marcado. \\
+- \underline{tienePermisoSalud}: Campo de tipo booleano. \\
+- \underline{numeroPermisoSalud}: Campo de tipo entero. Este campo estará presente solo si el campo 'tienePermisoSalud' está marcado. \\
+- \underline{fechaVigenciaPermisoSalud}: Campo de tipo entero que almacena la fecha en el formato 'AAAAMMDD'. Este campo estará presente solo si el campo 'tienePermisoSalud' está marcado. \\
+- \underline{codigoCIIUPermisoSalud}: Campo de tipo texto. Código CIIU\footnote{El Código CIIU, o Clasificación Industrial Internacional Uniforme, es un sistema de clasificación de actividades económicas a nivel mundial. Se utiliza para agrupar y categorizar las diferentes actividades que realizan las empresas y personas naturales, facilitando así la recopilación y análisis de datos estadísticos a nivel nacional e internacional} del permiso de salud: código que aparece en el permiso de salud de la actividad económica que se desempeña. Este campo estará presente solo si el campo 'tienePermisoSalud' está marcado. \\
+- \underline{seTrataDeLocalMercado}: Campo de tipo booleano. \\
+- \underline{numeroLocalMercado}: Campo de tipo entero. Este campo estará presente solo si el campo 'seTrataDeLocalMercado' está marcado. \\
+- \underline{tienePatenteLicores}: Campo de tipo booleano \\
+- \underline{numeroPatenteLicores}: Campo de tipo entero. Este campo estará presente solo si el campo 'tienePatenteLicores' está marcado. \\
+- \underline{areaActividad}: Campo de tipo entero. Representa el índice asociado a una de las opciones de la siguiente lista: [1: 'Menos de 50m²', 2: '51 a 100m²', 3: '101 a 200m²', 4: '200 a 400m²', 5: '400 a 1000m²', 6: 'Más de 1000m²', 998: 'No aplica', 999: 'No visible']. \\
+- \underline{telefonoPatentado}: Campo de tipo entero, con el número telefónico del propietario del inmueble. \\
+- \underline{correoElectronico}: Campo de tipo texto. Correo del propietario. \\
+- \underline{cantidadEmpleadosAntesCovid}: Campo de tipo entero. \\
+- \underline{cantidadEmpleadosActual}: Campo de tipo entero. \\
+- \underline{afectacionesCovidPersonalDesempennoEmpresa}: Campo de texto. Es conformado por un campo de selección múltiple de entre las opciones de la siguiente lista: ['Despido de empleados', 'Reducción jornada laboral', 'Suspensión del contrato laboral', 'Se adelantaron vacaciones', 'Se empezó a trabajar por turnos', 'Se aumentaron las jornadas', 'Se implementó modalidad de teletrabajo']. \\
+- \underline{afectacionesCovidSobreVentas}: Campo de texto. Es conformado por un campo de selección múltiple de entre las opciones de la siguiente lista: ['Ingresó "0" ante la afectación de una orden sanitaria', 'Reducción de los ingresos entre un 50-90\%', 'Reducción de los ingresos entre un 20-50\%', 'Se mantuvieron dentro de lo esperado', 'Aumentaron', 'Ninguna', 'NS-NR'] \\
+- \underline{codigoCIIUActividadPrimaria}: Campo de tipo texto. Inhabilitado. \\
+- \underline{codigoCIIUActividadComplementaria}: Campo de tipo texto. Inhabilitado \\
+- \underline{observacionesPatentes}: Texto describiendo las observaciones acerca de la construcción del edificio. \\
+- \underline{imagenDocumentoLegal}: Campo de tipo bytes que almacena una imagen que capture el documento legal mostrado por la entidad. \\
+
 \section{Tecnologías y librerías utilizadas}
+\subsection{Dart}
+Como base decisiva, tanto para la fácil integración de la arquitectura pensada, como para la organización y productividad a la hora de depurar el código del proyecto,
+es imprescindible mencionar a Dart, un lenguaje orientado a objetos, fuertemente tipado aunque con inferencia de tipos, basado en clases, con Garbage Collector
+\footnote{El Garbage Collector es un sistema automatizado que libera la memoria que ya no está siendo utilizada por un programa}
+y una sintaxis al estilo C, que puede compilar tanto a código nativo como a JavaScript. Admite interfaces, mixins, clases abstractas, genericidad, entre otras maravillosas cualidades. \cite{dartOficial}
+\subsection{Paquete geolocator}
+Este paqute se utilizó para la facilitación de la funcionalidad de obtener la geolocalización en tiempo real del dispositivo Android sobre el que está corriendo la aplicación.
+Este paquete ofrece una gran facilidad en el manejo de los permisos de geolocalización y clases y métodos bastante útiles para el trabajo con posiciones geográficas.
+\subsection{Paquete latlong2}
+
+\subsection{Paquetes file\_picker e image\_picker}
+\subsection{Paquete permission\_handler}
+\subsection{Paquete image}
 \section{Detalles de implementación}
 \subsection{Subformularios }
 \subsection{Reactividad de los formularios}
