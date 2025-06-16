@@ -25,8 +25,9 @@
 	% style=apa,
 	citestyle=authoryear,
   hyperref=true,
-	backref=true
-  style=numeric
+	backref=true,
+  style=numeric,
+  sorting=none
 	]{biblatex}
 \RequirePackage[linktocpage,breaklinks,colorlinks,%
                 linkcolor=black,anchorcolor=black,citecolor=black,%
