@@ -11,8 +11,8 @@ En esta sección se expondrán las acciones que puede realizar un usuario dentro
     y/u otros sistemas. Un diagrama que muestra la relación entre los actores y los Casos de Uso en un
     sistema.}
 , teniendo en cuenta que solo existe un rol de usuario, Encuestador,
-y tres grupos de acciones que se encapsulan en el diagrama por comodidad para el lector, Acciones de importación/exportación, Acciones en la pestaña "Mapa" y Acciones en
-la pestaña "Registro".
+y tres grupos de acciones que se encapsulan en el diagrama por comodidad para el lector, Acciones de importación/exportación, Acciones en la pestaña 'Mapa' y Acciones en
+la pestaña 'Registro'.
 \pagebreak
 \begin{figure}[h]
     \centering
@@ -23,42 +23,42 @@ la pestaña "Registro".
 En la figura anterior(Ver figura \ref{fig:figura13}) se puden observar las diversas acciones que puede realizar un encuestador dentro de
 la aplicación. Las mismas se explican a continuación:
 \begin{itemize}
-    \item \textbf{Ir a la pestaña "Mapa"}: Al presionar en la pestaña nombrada de esta manera se abrirá la vista de Mapa. Por defecto esta es la vista que se muestra.
-    \item \textbf{Ir a la pestaña "Registro"}: Al presionar en la pestaña nombrada de esta manera se abrirá la vista de Registro o Formulario. Aquí se podrá introducir información relacionada con los predios, edificios y propiedades que se deseen.
+    \item \textbf{Ir a la pestaña 'Mapa'}: Al presionar en la pestaña nombrada de esta manera se abrirá la vista de Mapa. Por defecto esta es la vista que se muestra.
+    \item \textbf{Ir a la pestaña 'Registro'}: Al presionar en la pestaña nombrada de esta manera se abrirá la vista de Registro o Formulario. Aquí se podrá introducir información relacionada con los predios, edificios y propiedades que se deseen.
     \item \textbf{Acciones de importación/exportación}
           Aqui se debe recalcar que estas funcionalidades diseñadas puramente por comodidad para los encuestadores, ya que se se colocan el mapa y las
           delimitaciones que se quieren mostrar, en las carpetas correspondientes no será necesario usar más nada, se mostrarán automáticamente en la aplicación.
           \begin{itemize}
               \item \textbf{Importar Mapa}: Esta opción abrirá una nueva ventana de selección de archivos, donde el usuario deberá seleccionar
-                    un archivo con extensión ".mbtiles" para importarlo en la aplicación. Esto realizará una copia del archivo seleccionado hacia
+                    un archivo con extensión '.mbtiles' para importarlo en la aplicación. Esto realizará una copia del archivo seleccionado hacia
                     la carpeta de mapas de la aplicación en el almacenamiento del dispositivo('CADIC/Maps'). Para que la importación surta efecto,
                     se deberá cambiar rápidamente de pestaña o cerrar y abrir la aplicación.
               \item \label{item:importaciongeojson}\textbf{Importar capa de Delimitaciones}: También abrirá una ventana de selección de archivos, pero esta vez esperando que
-                    el usuario localice un archivo con extensión ".geojson". Dentro del archivo deben encontrarse definiciones de polígonos, y
-                    dentro de cada polígono, en el apartado de "properties" podrá incluirse la etiqueta individual que se deseará mostrar para
+                    el usuario localice un archivo con extensión '.geojson'. Dentro del archivo deben encontrarse definiciones de polígonos, y
+                    dentro de cada polígono, en el apartado de 'properties' podrá incluirse la etiqueta individual que se deseará mostrar para
                     cada polígono, esta se mostrará en el centro de cada polígono al renderizarse en el mapa. En el caso de una capa de polígonos
                     que representen predios, el archivo que contiene las delimitaciones deberá cumplir 2 resticciones para obtener
                     una correcta integración y funcionamiento con la aplicación. Una de estas restricciones es que el nombre termine de la siguiente manera:
                     \begin{mdframed}
                         (...)\_predios.geojson
                     \end{mdframed}
-                    Por ejemplo: "managua\_predios.geojson". La otra restricción es que cada definición de polígono interna en el archivo,
-                    tenga una propiedad "localizacion" (sin tilde), con valor igual al número de localización correspondiente al predio que define.
+                    Por ejemplo: 'managua\_predios.geojson'. La otra restricción es que cada definición de polígono interna en el archivo,
+                    tenga una propiedad 'localizacion' (sin tilde), con valor igual al número de localización correspondiente al predio que define.
                     De esta manera se importarán correctamente las delimitaciones, considerando cada archivo como una capa, y pintando de un color
                     diferente cada una de estas capas.
 
               \item \textbf{Exportar BD}: Esto exportará la BD hacia el directorio 'CADIC/Exportado'.
               \item \textbf{Limpiar BD}: Limpia la Base de Datos, solo dejando el nombre del encuestador registrado al iniciar la aplicación por primera vez.
           \end{itemize}
-    \item \textbf{Acciones en la pestaña "Mapa"}
+    \item \textbf{Acciones en la pestaña 'Mapa'}
           \begin{itemize}
-              \item \textbf{Interactuar con el mapa}: En la pestaña "Mapa", la funcionalidad primaria es la interacción con el mapa, lo que abarca desde
+              \item \textbf{Interactuar con el mapa}: En la pestaña 'Mapa', la funcionalidad primaria es la interacción con el mapa, lo que abarca desde
                     el acercamiento/alejamiento de la vista del mapa, como el desplazamiento de la vista horizontal y verticalmente. Esto se realiza con
                     los gestos clásicos de navegación por el mapa sobre la pantalla táctil del dispositivo.
               \item \textbf{Hacer click en uno de los predios}: Al cargar las delimitaciones de los predios, edificios y manzanas sobre el mapa,
                     los predios no solo se deberían mostrar como polígonos con borde de color rojo, sino que también deberán tener un marcador visualizado
                     como punto de color negro en su centroide. Al hacer click sobre uno de estos puntos en el mapa, automáticamente se accederá a la información
-                    registrada del predio asociado al marcador, abriéndose la vista de la pestaña "Registro" con los datos del predio si había sido registrado previamente.
+                    registrada del predio asociado al marcador, abriéndose la vista de la pestaña 'Registro' con los datos del predio si había sido registrado previamente.
                     \footnote{El centroide, también conocido como baricentro, es el centro geométrico de una figura o cuerpo. Representa el punto donde se concentraría toda
                         la masa si el objeto tuviera una distribución uniforme de masa. En otras palabras, es el punto de equilibrio de la figura. }
 
@@ -79,10 +79,10 @@ la aplicación. Las mismas se explican a continuación:
                     de color y de esta manera se sabrá que este edificio está siendo editado. Los campos que hayan sido rellenados previamente del edificio se visualizarán por si se
                     desea editarlos. \\
                     Un comportamiento similar ocurre con la relación edificio-propiedades. Cuando un edificio esté seleccionado, y se aprecie con un color verde claro, como
-                    anteriormente se dijo, este está seleccionado, esto significa que se podrá editar y al mismo tiempo el formulario mostrará un nuevo subformulario "Propiedades"
-                    que mostrará las propiedades asociadas al edificio seleccionado, como una lista de elementos visuales que representan a cada propiedad mostrando una letra "P" junto
-                    al Número de local de cada propiedad, de manera similar a como lo hace el subformulario "Edificio" con los edificios del predio seleccionado.
-                    Para editar una propiedad se hará igual a como se edita un edficio, presionando encima del elemento visual que la identifica. De igual manera al hacer esto, el elemento visual
+                    anteriormente se dijo, este está seleccionado, esto significa que se podrá editar y al mismo tiempo el formulario mostrará un nuevo subformulario 'Propiedades'
+                    que mostrará las propiedades asociadas al edificio seleccionado, como una lista de elementos visuales que representan a cada propiedad mostrando una letra 'P' junto
+                    al Número de local de cada propiedad, de manera similar a como lo hace el subformulario 'Edificio' con los edificios del predio seleccionado.
+                    Para editar una propiedad se hará igual a como se edita un edficio, presionando encima del elemento visual que le identifica. De igual manera al hacer esto, el elemento visual
                     presionado cambiará a un color verde claro, indicando que la propiedad que representa está siendo editada, mostrando en el subformulario Propiedad los valores guardados
                     de la propiedad en cuestión para cada campo.
               \item \textbf{Eliminar edificio/propiedad}: A la derecha de cada elemento visual que representa tanto una propiedad como los de cada edificio, se observará una pequeña cruz
@@ -110,7 +110,15 @@ intermedio como lo hace la arquitectura MVC con el Controlador, pero en este cas
 es que en MVC se trata de separar el acceso a los datos mediante el componente Controlador, pero en MVVM se trata de separar la lógica de negocio de la UI a través del componente
 Modelo de Vista, el cuál mantendrá el estado de los datos que se muestran en la Vista y será reactivo al cambio de la misma, haciendo variaciones internas y dejando los datos en
 un formato listo para ser mostrado nuevamente, dejando la responsabilidad de los datos en si y el acceso a ellos, al componente Modelo, por lo que esta arquitectura está orientada
-a la claridad y limpieza de la Vista o UI. Por lo que, resumiento las resposabilidades de cada componente de esta arquitectura, estas son:
+a la claridad y limpieza de la Vista o UI. A continuación, se resumen y exponen las resposabilidades de cada componente de esta arquitectura, pudiendo apoyarse también en en diagrama
+de la figura \ref{fig:figura14}:
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.35]{Graphics/Capitulo 3/modelo MVVM.png}
+    \caption{Diagrama de Arquitectura 'Modelo-Vista-Modelo de Vista'.} % Título de la figura
+    \label{fig:figura14}
+\end{figure}
 
 \begin{itemize}
     \item \textbf{Modelo}: Contiene las entidades de dominio (datos). Contiene las reglas de negocio. Accede a bases de datos, servicios remotos, etc.
@@ -132,11 +140,11 @@ En la siguiente imagen se muestra la estructura del proyecto:
     \centering
     \includegraphics[scale=0.5]{Graphics/Capitulo 3/estructura_del_codigo.png}
     \caption{Estructura del código.} % Título de la figura
-    \label{fig:figura14}
+    \label{fig:figura15}
 \end{figure}
 
-En la figura anterior (Ver figura \ref{fig:figura14})se pueden apreciar las diferentes capas de la arquitectura MVVM bien definidas,
-representadas por las carpetas "Model", "View" y "ViewModel" que contienen la parte del código relacionada con la capa de arquitectura
+En la figura anterior (Ver figura \ref{fig:figura15})se pueden apreciar las diferentes capas de la arquitectura MVVM bien definidas,
+representadas por las carpetas 'Model', 'View' y 'ViewModel' que contienen la parte del código relacionada con la capa de arquitectura
 que su nombre indica:\\\\
 \textbf{Model}\label{item:Model}\\
 Aquí se encuentra la capa que abarca los datos y el acceso a ellos. Se hace uso de la librería sqflite \cite{sqflite} como mediador de comunicación
@@ -146,7 +154,7 @@ el formato de los datos que requiere sqflite para insertar en sus tablas corresp
 son \textbf{Predio}, \textbf{Edificio} y \textbf{Propiedad}.
 \\\\
 \textbf{View}\\
-El componente Vista está dividido en dos partes, las pantallas o "Screens" y los "Widgets"
+El componente Vista está dividido en dos partes, las pantallas o 'Screens' y los 'Widgets'
 \footnote{Los widgets son básicamente componentes de Flutter utilizados para crear la interfaz de usuario de
     la aplicación}.
 Existen solo dos pantallas en este caso, la pantalla del mapa sin conexión, que es donde se hace uso de las librerías flutter\_map y flutter\_map\_mbtiles para
@@ -173,14 +181,15 @@ Dada la naturaleza del problema: desarrollo en Android, desconexión de internet
 que ofrece simplicidad y una buena integración con Flutter a través de la librería sqflite, que a pesar de ser desarrollada por la comunidad, es un paquete muy utilizado y
 testeado en ambientes de desarrollo. Por otra parte, solo hay que enfocarse en el modelado de las entidades y relaciones presentes en el problema, ya que una vez construida
 la base de datos localmente, esta se exporta como archivo y se consume por un servicio externo, el cuál está fuera del margen de esta tesis.\\
-También es importante mencionar que se hizo una variación en el modelo de datos de la aplicación anterior, ya que existían conceptos redundantes que podían causar confusión y
-falta de claridad, pensando en primera instancia en los propios encuestadores, que son los futuros usuarios que utilizarán la aplicación final. En el modelo anterior existían
-cinco módulos los cuáles describen cada uno una entidad sobre la cuál recoger información, y la propia información a recoger. Los cinco módulos y las respectivas entidades sobre
-las que recogían información eran:
+También es importante mencionar que se hizo una variación en el concepto de modelo de datos propuesto inicialmente por el cliente, ya que existían conceptos redundantes que podían
+causar confusión y falta de claridad, pensando en primera instancia en los propios encuestadores, que son los futuros usuarios que utilizarán la aplicación final. En el modelo propuesto
+por el cliente existían cinco módulos los cuáles poseen una entidad sobre la cuál recogen información, y definen la información a recoger sobre su entidad correspondiente.
+Los cinco módulos propuestos por el cliente y las respectivas entidades sobre las que recogen información (también pudiendo ser visualizados en la tabla \ref{tab:modulosAnteriores}) son:
+\pagebreak
 
 \begin{table}[h!]
 \centering
-\caption{Módulos comprendidos en la aplicación y modelo de datos anteriores}
+\caption{Módulos comprendidos en el modelo de datos propuesto por el cliente}
 \label{tab:modulosAnteriores} % Etiqueta para referenciar la tabla más adelante
 \begin{tabular}{|r|l|}
     \toprule
@@ -194,19 +203,19 @@ las que recogían información eran:
     \bottomrule % Línea horizontal inferior (requiere booktabs)
 \end{tabular}
 \end {table}
-Por ende, como se puede observar, existían 3 módulos de datos referenciando a la misma entidad, Edificio, por lo que se decidió factorizar estos módulos, agrupándolos en
+Por ende, como se puede observar, aquí existen 3 módulos de datos referenciando a la misma entidad, Edificio, por lo que se decidió factorizar estos módulos, agrupándolos en
 \textbf{Predio}, \textbf{Edificio}, \textbf{Propiedad} y \textbf{Encuestador}.
-Luego, la base de datos que modela el problema es bastante simple; en la figura \ref{fig:figura15} se muestra el diagrama Entidad-Relación del modelo de Datos:
-\pagebreak
+Luego, la base de datos que modela el problema es bastante simple; en la figura \ref{fig:figura16} se muestra el diagrama Entidad-Relación del modelo de datos:
+% \pagebreak
 \begin{figure}[h]
     \centering
     \includegraphics[scale=0.5]{Graphics/Capitulo 3/DiagramaER.png}
     \caption{Diagrama Entidad-Realción del modelo de datos.} % Título de la figura
-    \label{fig:figura15}
+    \label{fig:figura16}
 \end{figure}
-Cabe destacar que por motivos de optimización, en los campos de selección de una lista fija de valores como por ejemplo lo es el caso de "materialFachada" en la entidad Edificio, se almacena solo un valor entero que representa el índice de
-la lista asociado con el valor que representa. Por ejemplo en este caso si el edificio que se está encuestando tiene un material de fachada Prefabricado, como en la lista de posibles materiales en la fachada, este valor es asociado con el índice 2,
-pues ese sería el valor que tomaría este campo, en lugar de almacenar el texto completo "Prefabricado". Tener en cuenta también que no siempre los índices que correponden al valor siguen una secuencia, por ejemplo en el propio campo de materialFachada,
+Cabe destacar que por motivos de optimización, en los campos de selección de una lista fija de valores como por ejemplo lo es el caso de 'materialFachada' en la entidad Edificio, se almacena solo un valor entero que representa el índice de
+la lista asociado con el valor que representa. Por ejemplo en este caso si el edificio que se está encuestando tiene un material de fachada prefabricado, como en la lista de posibles materiales en la fachada, este valor es asociado con el índice 2,
+pues ese sería el valor que tomaría este campo, en lugar de almacenar el texto completo 'Prefabricado'. Tener en cuenta también que no siempre los índices que correponden al valor siguen una secuencia, por ejemplo en el propio campo de materialFachada,
 se tiene el valor 'No visible' cuyo índice asociado sería 999, teniendo esta lista solamente 8 elementos. En cada campo de selección se especificará la lista de valores con sus índices numéricos asociados.
 \subsection{Predio}
 En el modelo de datos, \textbf{Predio} es la única entidad fuerte, o sea, la existencia de un predio no depende de la existencia de ninguna otra entidad del modelo. Estos son los campos/variables que incluye una tupla de Predio:\\\\
@@ -228,7 +237,7 @@ Estos son los campos/variables en la entidad Edificio:\\\\
 - \underline{materialFachada}: Campo de tipo entero. Evalúa el material predominante en la fachada del edificio. Representa el índice del material que le corresponde de la lista: [1: 'Bloques y Concreto', 2: 'Prefabricado', 3: 'Vidrio y Metal', 4: 'Ladrillo', 5: 'Madera', 6: 'Mixto', 998: 'No aplica', 999: 'No visible']\\
 - \underline{canoasBajantes}: Campo de tipo entero. Asociado a un índice de la lista: [0: 'No existe', 1: 'Cumple', 2: 'No cumple', 998: 'No aplica']\\
 - \underline{observacionesEdificacion}: Texto describiendo las observaciones acerca de la edificación.\\
-- \underline{estadoInmueble}: Campo de tipo entero. Asociado a un índice de la lista: [1: "Óptimo", 2: "Muy Bueno", 3: "Bueno", 4: "Intermedio", 5: "Regular", 6: "Deficiente", 7: "Malo", 8: "Muy Malo", 9: "Demolición", 998: "No Aplica"]\\
+- \underline{estadoInmueble}: Campo de tipo entero. Asociado a un índice de la lista: [1: 'Óptimo', 2: 'Muy Bueno', 3: 'Bueno', 4: 'Intermedio', 5: 'Regular', 6: 'Deficiente', 7: 'Malo', 8: 'Muy Malo', 9: 'Demolición', 998: 'No Aplica']\\
 - \underline{imagenConstruccion}: Campo de tipo bytes que almacena una imagen referente a la construcción del edificio.\\
 - \underline{cantidadMedidores}: Campo de tipo entero. Catidad de medidores eléctricos en el edificio.\\
 - \underline{observacionesMedidores}: Texto describiendo las observaciones acerca de los medidores del edificio.\\
@@ -237,18 +246,18 @@ Estos son los campos/variables en la entidad Edificio:\\\\
 Propiedad es una entidad débil también, la cuál tiene relación de dependencia de identificación con la entidad Edificio, y por ende, con la entidad Predio, es decir que una propiedad depende de la existencia de un edificio y por ende de un predio.
 Aquí se verán campos de tipo booleanos, o sea de Verdadero o Falso, que permitirán la existencia de otros campos. Por ejemplo, si el campo booleano 'tienePatenteLicores' está en falso, el campo 'numeroPatenteLicores' no se podrá rellenar. En el
 caso del campo booleano 'tienePermisoSalud', tres campos dependen de su valor para ser rellenados o no. También existen campos de selección múltiple, los cuáles serán almacenados en un campo de tipo texto, que incluya los valores de la selección
-separados por coma(","). Además, especificar que el campo de fecha 'fechaVigenciaPermisoSalud' en el formulario se tendrá la posibilidad de escoger desde un calendario y se verá la fecha en un formato bien definido, pero al almacenarse en la
+separados por coma(','). Además, especificar que el campo de fecha 'fechaVigenciaPermisoSalud' en el formulario se tendrá la posibilidad de escoger desde un calendario y se verá la fecha en un formato bien definido, pero al almacenarse en la
 base de datos, este será recogido como un número entero, que tendrá el formato 'AAAAMMDD'; y por último, también existen campos inhabilitados, o sea, que no podrán ser rellenados por los encuestadores. Estos campos se dejarán en la base de datos
 para que sea posible añadirlo luego fácilmente por la entidad encargada en caso de querer hacerlo. \\
 - \underline{idPredio}, \underline{noEdificio}, \underline{noLocal}:
 - \underline{nivelPiso}:  Campo de tipo texto, en el que se debe anotar el número de piso en donde se encuentra localizada la actividad. Si es más de un piso, deberá anotarse el
-rango de los pisos en que está localizado, ejemplo, 1-7 (piso 1 al piso 7), o si la actividad también se desarrolla en un sótano, entonces seria, por ejemplo -1-4 (sótano 1 al piso 4). \\
+rango de los pisos en que está localizado, ejemplo, "1-7" (piso 1 al piso 7), o si la actividad también se desarrolla en un sótano, entonces seria, por ejemplo "$ $-1-4" (sótano 1 al piso 4). \\
 - \underline{actividadPrimaria}: Campo de tipo texto, en donde se anotará la actividad principal encontrada. \\
 - \underline{actividadComplementaria}:  Campo de tipo texto, en donde se anotará la actividad menos predominante.\\
 - \underline{estadoNegocio}: Campo de tipo texto que se basa en una selección múltiple que evaluará la situación actual del negocio. La lista de opciones a escoger es: ['En operación', 'Cierre temporal', 'Desocupado con Rótulo SE ALQUILA', 'Cierre total', 'Ha modificado la actividad autorizada(EXPRESS u otra actividad)].\\
 - \underline{nombreNegocio}:  Campo de tipo texto, en el cual se anotará el nombre de fantasía del negocio, ubicado en la publicidad (rotulo, vallas, ventanería, etc.). \\
 - \underline{cantidadParqueos}: Campo numérico, en donde se anotará la cantidad de espacios de parqueos observada con que cuenta el inmueble. \\
-- \underline{documentoMostrado}: Campo de tipo entero. Representa el índice que asocia el tipo de documento presentado que represente la patente de la actividad de la siguiente lista: [1: 'Certificado Patente', 2: 'Recibo al día(Menos de dos meses de atraso)', 3: 'Recibo atrasado(Con más de dos meses de atraso)', 4: 'Certificado Trámite "CT". Indicar el número', 5: 'No muestra documentos de patente']. \\
+- \underline{documentoMostrado}: Campo de tipo entero. Representa el índice que asocia el tipo de documento presentado que represente la patente de la actividad de la siguiente lista: [1: 'Certificado Patente', 2: 'Recibo al día(Menos de dos meses de atraso)', 3: 'Recibo atrasado(Con más de dos meses de atraso)', 4: 'Certificado Trámite "$ $CT". Indicar el número', 5: 'No muestra documentos de patente']. \\
 - \underline{nombrePatentado}: Campo de tipo texto, en el cual se deberá anotar el nombre de quien está en la patente comercial del negocio. \\
 - \underline{numeroPatenteComercial}: Campo de tipo entero. Número de patente comercial o código específico en casos señalados puntuales. \\
 - \underline{cedulaPatentado}: Campo de tipo entero, en el cual se anotará el número de cedula que se muestra en el certificado o recibo de la patente. \\
@@ -269,7 +278,7 @@ rango de los pisos en que está localizado, ejemplo, 1-7 (piso 1 al piso 7), o s
 - \underline{cantidadEmpleadosAntesCovid}: Campo de tipo entero. \\
 - \underline{cantidadEmpleadosActual}: Campo de tipo entero. \\
 - \underline{afectacionesCovidPersonalDesempennoEmpresa}: Campo de texto. Es conformado por un campo de selección múltiple de entre las opciones de la siguiente lista: ['Despido de empleados', 'Reducción jornada laboral', 'Suspensión del contrato laboral', 'Se adelantaron vacaciones', 'Se empezó a trabajar por turnos', 'Se aumentaron las jornadas', 'Se implementó modalidad de teletrabajo']. \\
-- \underline{afectacionesCovidSobreVentas}: Campo de texto. Es conformado por un campo de selección múltiple de entre las opciones de la siguiente lista: ['Ingresó "0" ante la afectación de una orden sanitaria', 'Reducción de los ingresos entre un 50-90\%', 'Reducción de los ingresos entre un 20-50\%', 'Se mantuvieron dentro de lo esperado', 'Aumentaron', 'Ninguna', 'NS-NR'] \\
+- \underline{afectacionesCovidSobreVentas}: Campo de texto. Es conformado por un campo de selección múltiple de entre las opciones de la siguiente lista: ['Ingresó (0) ante la afectación de una orden sanitaria', 'Reducción de los ingresos entre un 50-90\%', 'Reducción de los ingresos entre un 20-50\%', 'Se mantuvieron dentro de lo esperado', 'Aumentaron', 'Ninguna', 'NS-NR'] \\
 - \underline{codigoCIIUActividadPrimaria}: Campo de tipo texto. Inhabilitado. \\
 - \underline{codigoCIIUActividadComplementaria}: Campo de tipo texto. Inhabilitado \\
 - \underline{observacionesPatentes}: Texto describiendo las observaciones acerca de la construcción del edificio. \\
@@ -300,22 +309,23 @@ del sistema de archivos del dispositivo, y en Android, los permisos de escritura
 según la versión de sdk o de sistema operativo que tenga el dispositivo. Este paquete es bastante útil para el manejo de permisos, incluyendo incluso funciones que redireccionan al usuario hacia los ajustes del
 dispositivo para que concedan el permiso, en caso que no haya otra opción.
 \subsection{Paquete image}
-En SQLite, el almacenamiento de imágenes tiene un problema, y es que el tamaño de archivos multimedia en campos "BLOB"
+En SQLite, el almacenamiento de imágenes tiene un problema, y es que el tamaño de archivos multimedia en campos 'BLOB'
 \footnote{Un campo BLOB, o Objeto Binario Grande, es un tipo de campo en bases de datos utilizado para almacenar datos binarios de gran tamaño, como imágenes, audio, video o documentos}
 tiene un límite de tamaño. Se sugiere almacenar en campos BLOB archivos de no más de 5mb. Por esta razón fue necesario usar el paquete image\cite{image} para procesar y comprimir las imágenes mayores de 1.8mb, que ya sería un tamaño no tan prudente
 para un archivo a ser almacenado en un campo BLOB de SQLite.
 \section{Detalles de implementación}
-En esta subsección se explicará de cara al desarrollador, la implementación de cada uno de los elementos visuales de los subformularios en la capa o componente View, y la relación con sus controladores en la capa o componente ModelView. También se explicarán .\\\\
+En esta subsección se explicará de cara al desarrollador, la implementación de cada uno de los elementos visuales de los subformularios en la capa o componente View, y la relación con sus controladores en la capa o componente ModelView. También se explicará la estructura del
+modelo a nivel de código y la jerarquía de clases utilizada.\\\\
 \subsection{Subformularios}
 Como ya se mencionó, existen varios subformularios que integran la funcionalidad de Registro en la aplicación Inventario. Ellos son Predio, Edificio y Propiedad. Estos solo están integrados por la parte visual de sus respectivos campos, y una mínima implementación
 de funciones pequeñas de validación de campos, como comprobaciones de nulidad, o si el valor que se introdujo en un campo es entero, o verificar la cantidad de cifras de un número no es correcta. En la siguiente figura se presenta un fragmento del código del subformulario
-Predio donde se puede ver parte de la implementación de algunos campos del mismo(ver Figura \ref{fig:figura16}).
+Predio donde se puede ver parte de la implementación de algunos campos del mismo(ver Figura \ref{fig:figura17}).
 
 \begin{figure}[h]
     \centering
     \includegraphics[scale=0.5]{Graphics/Capitulo 3/formulario_predio.png}
     \caption{Fragmento de la implementación del subformulario Predio} % Título de la figura
-    \label{fig:figura16}
+    \label{fig:figura17}
 \end{figure}
 
 Como ya se analizó en el epígrafe \ref{section:dataModel}, se tienen varios predios, donde cada uno de estos predios puede contener varios
@@ -340,7 +350,7 @@ Luego, cada subformulario, tiene su propio controlador, declarado como una varia
 que forma parte de la capa ModelView, estaría abstraído de lo que ocurre con la interfaz del formulario. El controlador simplemente guardaría el estado
 de las variables. Cada formulario, al sí tener control de su estado, puede acceder a él para en base a si hay algún cambio, renderizar su interfaz visual en consecuencia.
 Esto se logra haciendo uso del principio de llaves de widgets en Flutter, que plantea que si una llave de un widget cambia, este widget deberá ser renderizado nuevamente
-Por ejemplo, en la Figura \ref{fig:figura16} podemos observar como cada uno de los campos de Predio, obtiene el valor del estado de su variable, y lo establece como
+Por ejemplo, en la Figura \ref{fig:figura17} podemos observar como cada uno de los campos de Predio, obtiene el valor del estado de su variable, y lo establece como
 valor inicial del campo y también lo establece como llave a ese campo, diciéndole a Flutter que cuando este valor cambie, debe cambiar también la interfaz visual. Esto provoca que
 al cambiarse el estado global de la aplicación(variable formGlobalStatus), se desencandenen una serie de acciones al intentar renderizar los 3 subformularios:
 \begin{enumerate}
@@ -362,15 +372,23 @@ por ende el ModelView le deja saber al View lo mismo, y este último le muestra 
 % \subsection{Restricciones y visibilidad de campos de los formularios}
 
 \subsection{Exportación e importación de archivos}
-La única forma de mostrar mapas sin conexión a Internet con Flutter(sin descarga inicial siquiera) es con la librería flutter\_map\_mbtiles, y esta lee los archivos de mapas en formato ".mbtiles" por lo que fue obligatorio el uso de este tipo de formato de archivo de mapa
+La única forma de mostrar mapas sin conexión a Internet con Flutter(sin descarga inicial siquiera) es con la librería flutter\_map\_mbtiles, y esta lee los archivos de mapas en formato '.mbtiles' por lo que fue obligatorio el uso de este tipo de formato de archivo de mapa
 sqlite. Luego, para la importación de capas de delimitaciones encima del mapa base, se escogió el formato gegojson por la claridad que ofrece, además de la cantidad de herramientas que existen hoy en día que crean polígonos
 de una manera rápida y efectiva, además de la facilidad de lectura y extracción de datos, leyendo estos archivos como json con librerías built-in de Dart. Ya se expusieron las razones de por qué se escogió SQLite como sistema gestor de bases de datos.
 Revisar el formato de entrada del las delimitaciones en archivos geojsonen a inicios de este capítulo(Ver \ref{item:importaciongeojson}) para su correcta importación
 \subsection{Extensión del código}
 En esta subsección se hablará un poco más de la capa Model y de como extender el modelo de datos en caso que se desee, ya que en realidad los datos son la característica principal de una aplicación de categoría SIG.
 La capa Model esta compuesta por 3 archivos, 'db\_debug.dart', 'db\_general\_management.dart' y 'file\_management.dart', pero en realidad donde se concentra el diseño del modelo es en 'db\_general\_management.dart'. Se diseñó una jerarquía de clases con el objetivo de
-entregar un proyecto expansible y reutilizable, la cual consta, como ya se explicó a grandes rasgos en\ref{item:Model}de una clase abstracta 'InventarioDbTable' que tiene la implementación de las operaciones de eliminación, actualización e inserción, basados en propiedades que debe
-implementar o proveer toda clase que herede de 'InventarioDbTable'. Al crear una clase que hereda de InventarioDbTable, ya que los parámetros 'tableName' y 'primaryKeysWhere' son obligatorios, Dart exigirá que en el constructor de las clases herederas se llame al constructor de su padre
+entregar un proyecto expansible y reutilizable, la cual consta, como ya se explicó a grandes rasgos en \ref{item:Model} de una clase abstracta 'InventarioDbTable' que tiene la implementación de las operaciones de eliminación, actualización e inserción, basados en propiedades que debe
+implementar o proveer toda clase que herede de 'InventarioDbTable' (Ver implementación en la figura \ref{fig:figura18}).
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.7]{Graphics/Capitulo 3/Definicion clase abstracta InventarioDBTable.png}
+    \caption{Definición de la clase abstracta 'InventarioDbTable'}
+    \label{fig:figura18}
+\end{figure}
+
+Al crear una clase que hereda de InventarioDbTable, ya que los parámetros 'tableName' y 'primaryKeysWhere' son obligatorios, Dart exigirá que en el constructor de las clases herederas se llame al constructor de su padre
 y provea estos dos parámetros mediante la palabra reservada de Dart 'super' y la invocación con los paréntesis, haciendo inclusión de dichos datos mediante el uso de los parámetros de nombre de Dart. Por otra parte, hay una propiedad o 'getter' y un método en la clase 'InventarioDbTable' que al
 una clase heredar de esta clase abstracta, Dart te exigirá implementar en la clase heredera. El getter se llama 'primaryKeysWhereArgs' y el método se llama 'toMap()' y junto con los demás parámetros y la definición de la tabla en SQLite, se tiene todo lo necesario para que se ejecute automáticamente la inserción, actualización y eliminación sobre esta nueva tabla.
 \\\\
@@ -384,16 +402,16 @@ Este método se usa para la inserción y la actualización.
 \textbf{primaryKeysWhere} y \textbf{primaryKeysWhereArgs}\\
 A la hora de hacer consultas con sqflite, estas se declaran de la forma:
 \begin{mdframed}
-    database.query(tableName, where: "idPredio = ? AND noEdificio = ?", whereArgs: [predio.idPredio, edificio.noEdificio]);
+    database.query(tableName, where: "$ $idPredio = ? AND noEdificio = ?", whereArgs: [predio.idPredio, edificio.noEdificio]);
 \end{mdframed}
-El objetivo es entregar en este formato: String y List<dynamic> respectivamente las claves primarias de la nueva tabla. Para una idea más clara, en la figura \ref{} se tiene la implementación que
+El objetivo es entregar en este formato: String y List<dynamic> respectivamente las claves primarias de la nueva tabla. Para una idea más clara, en la figura \ref{fig:figura19} se tiene la implementación que
 hace la clase 'Encuestador' del Modelo de la clase abstracta 'InventarioDbTable'
 \\\\
 \begin{figure}[h]
     \centering
     \includegraphics[]{Graphics/Capitulo 3/implementacion_InventarioDBTable.png}
     \caption{Implementación de la clase abstracta 'InventarioDbTable' por la clase 'Encuestador'}
-    \label{fig:figura17}
+    \label{fig:figura19}
 \end{figure}
 
 
