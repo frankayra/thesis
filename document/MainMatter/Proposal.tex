@@ -4,7 +4,7 @@ necesidad de implementar desde cero una aplicación de Android usando Flutter pa
 Este capítulo estará enfocado en el marco teórico-computacional de la propuesta de
 solución para este proyecto. Se abordarán temas que incluyen los detalles de la arquitectura seleccionada, la modelación de los datos del problema
 y el análisis de los requerimientos funcionales de la aplicación. Se abordarán también las principales tecnologías utilizadas, así como, algunos detalles de implementación.
-\section{Diagrama de casos de uso}
+\section{Diagrama de casos de uso}\label{section:casosDeUso}
 En esta sección se expondrán las acciones que puede realizar un usuario dentro de la aplicación, explicado a través de un diagrama de casos de uso
 \footnote{Diagrama de casos de uso: Forma de diagrama de comportamiento UML(Unified Modeling Language o en español Lenguaje de Modelado Unificado) mejorado. Sirve para
     especificar la comunicación y el comportamiento de un sistema mediante su interacción con los usuarios
@@ -65,19 +65,25 @@ la aplicación. Las mismas se explican a continuación:
               \item \textbf{Acceder a la ubicación actual}: Si se presiona sobre el botón con un ícono de objetivo, la vista del mapa se centrará en
                     la localización actual del usuario.
           \end{itemize}
-    \item \textbf{Acciones en la pestaña "Registro"}
+    \item \textbf{Acciones en la pestaña 'Registro'}
           \begin{itemize}
               \item \textbf{Cambiar el predio que se está visualizando/editando}: Por defecto en la vista del Formulario, el número de Localización no se puede variar,
-                    pero al lado de este campo inhabilitado, se encontrará una casilla para marcar, la cuál si está en efecto marcada, permitirá cambiar el número de
+                    pero al lado de este campo inhabilitado, se encontrará una casilla para marcar, la cual si está en efecto marcada, permitirá cambiar el número de
                     localización, lo que concede acceder manualmente a la información de un predio con solo introducir su identificador de localización.
               \item \textbf{Editar/rellenar campos del formularios}: Sin profundizar aún mucho en el tema, cabe mencionar que los formularios son reactivos, y por lo tanto,
                     varias acciones que se realicen en la aplicación, tendrán repercución en lo que se muestra y lo que no del formulario.
-              \item \textbf{Guardar un formulario}: Un formulario no se registrará en la Base de Datos si no se presiona el botón de "Guardar"
+              \item \textbf{Guardar un formulario}: Un formulario no se registrará en la Base de Datos si no se presiona el botón de "Guardar".
               \item \textbf{Editar edificio/propiedad}: Si el número de localización actual del formulario, refiere a un predio ya registrado en la base de datos, en caso de
                     que este predio tenga edificios ya registrados, igualmente se mostrarán en una lista de elementos visuales dentro del subformulario Edificio. Luego, la manera
-                    de editar un edificio ya existente, es presionando sobre el elemento visual que lo identifica con una letra 'E' acompañada de su número de edificio. Esta cambiará
+                    de editar un edificio ya existente, es presionando sobre el elemento visual que lo representa con el identificador 'Ed' acompañado de su número de edificio. Este cambiará
                     de color y de esta manera se sabrá que este edificio está siendo editado. Los campos que hayan sido rellenados previamente del edificio se visualizarán por si se
-                    desea editarlos. \\
+                    desea editarlos. En la figura \ref{fig:edicionFormulario1} se puede ver el caso de un predio con 3 edificios, donde se están editando los valores del edificio 2\\
+                    \begin{figure}[h]
+                        \centering
+                        \includegraphics[scale=1]{Graphics/Capitulo 3/edicion_formulario_2.png}
+                        \caption{Edición del edificio 2 perteneciente a un predio con 3 edificios.} % Título de la figura
+                        \label{fig:edicionFormulario1}
+                    \end{figure}\\
                     Un comportamiento similar ocurre con la relación edificio-propiedades. Cuando un edificio esté seleccionado, y se aprecie con un color verde claro, como
                     anteriormente se dijo, este está seleccionado, esto significa que se podrá editar y al mismo tiempo el formulario mostrará un nuevo subformulario 'Propiedades'
                     que mostrará las propiedades asociadas al edificio seleccionado, como una lista de elementos visuales que representan a cada propiedad mostrando una letra 'P' junto
@@ -86,7 +92,7 @@ la aplicación. Las mismas se explican a continuación:
                     presionado cambiará a un color verde claro, indicando que la propiedad que representa está siendo editada, mostrando en el subformulario Propiedad los valores guardados
                     de la propiedad en cuestión para cada campo.
               \item \textbf{Eliminar edificio/propiedad}: A la derecha de cada elemento visual que representa tanto una propiedad como los de cada edificio, se observará una pequeña cruz
-                    la cuál al ser presionada hará que se elimine dicha propiedad o dicho edificio respectivamente. Luego de haber eliminado la entidad en cuestión, en caso de haber presionado
+                    la cual al ser presionada hará que se elimine dicha propiedad o dicho edificio respectivamente. Luego de haber eliminado la entidad en cuestión, en caso de haber presionado
                     esta opción por error, será posible revertir esto antes de los 5 segundos de haber eliminado la entidad presionando "Deshacer" en una barra auxiliar que aparecerá justo luego de
                     haber eliminado.
               \item \textbf{Marcar predio como visitado}: Esta es una de las funcionalidades más útiles visualmente para un encuestador al estar en una inspección. Al final del formulario en la pestaña
@@ -108,7 +114,7 @@ debido a sus beneficios en la separación de responsabilidades y la mejora de la
 Este patrón de arquitectura o simplemente arquitectura, busca separar estrictamente la Interfaz de usuario de la lógica de negocio y de presentación, estableciendo un componente
 intermedio como lo hace la arquitectura MVC con el Controlador, pero en este caso con el Modelo de Vista o ModelView. La principal diferencia entre estas dos arquitecturas
 es que en MVC se trata de separar el acceso a los datos mediante el componente Controlador, pero en MVVM se trata de separar la lógica de negocio de la UI a través del componente
-Modelo de Vista, el cuál mantendrá el estado de los datos que se muestran en la Vista y será reactivo al cambio de la misma, haciendo variaciones internas y dejando los datos en
+Modelo de Vista, el cual mantendrá el estado de los datos que se muestran en la Vista y será reactivo al cambio de la misma, haciendo variaciones internas y dejando los datos en
 un formato listo para ser mostrado nuevamente, dejando la responsabilidad de los datos en si y el acceso a ellos, al componente Modelo, por lo que esta arquitectura está orientada
 a la claridad y limpieza de la Vista o UI. A continuación, se resumen y exponen las resposabilidades de cada componente de esta arquitectura, pudiendo apoyarse también en en diagrama
 de la figura \ref{fig:figura14}:
@@ -149,7 +155,7 @@ que su nombre indica:\\\\
 \textbf{Model}\label{item:Model}\\
 Aquí se encuentra la capa que abarca los datos y el acceso a ellos. Se hace uso de la librería sqflite \cite{sqflite} como mediador de comunicación
 con bases de datos SQLite. Se encierra el modelo de datos en una jerarquía de clases reutilizable y expandible que tiene como padre la clase abstracta \textbf{InventarioDbTable},
-de la cuál las clases que representan las tablas del modelo de datos del problema heredan, obligándoles a implementar propiedades y métodos que proporcionarán
+de la cual las clases que representan las tablas del modelo de datos del problema heredan, obligándoles a implementar propiedades y métodos que proporcionarán
 el formato de los datos que requiere sqflite para insertar en sus tablas correspondientes. Estas clases asociadas a las tablas de la Base de Datos
 son \textbf{Predio}, \textbf{Edificio} y \textbf{Propiedad}.
 \\\\
@@ -163,7 +169,7 @@ cantidad de Widgets predefinidos que posee Flutter para los diversos campos de l
 usan en ambas pantallas. Las partes que se usan para conformar la pantalla del formulario se encuentran dentro del subdirectorio \textbf{Form Sections} y son los
 subformularios Predio, Edificio y Propiedad, que usan individualmente componentes/widgets de Flutter para los campos que se asocian con los datos de cada una de
 las tablas que representan. Al mismo tiempo, la funcionalidad que se declara dentro del subdirectorio \textbf{Map utilities} es la declaración de un widget
-que representa una capa de delimitaciones, el cuál se encarga de filtrar los polígonos que representan predios y calcular los centroides y pintarlos\\
+que representa una capa de delimitaciones, el cual se encarga de filtrar los polígonos que representan predios y calcular los centroides y pintarlos\\
 Por otra parte, los Widgets que se definen son para el uso mayormente en la pantalla del formulario. Algunos de ellos son campos de formulario personalizados que
 ofrecen una validación y son reactivos de acuerdo a lo que se necesita. Estos son los campos de fecha e imagen, además de algunos widgets que ayudan con el flujo
 de procesos de la interfaz visual.
@@ -180,10 +186,10 @@ visual en consecuencia. Cabe destacar que por motivos de organización cada subo
 Dada la naturaleza del problema: desarrollo en Android, desconexión de internet; y la naturaleza de Flutter, se escogió trabajar con el sistema gestor de bases de datos SQLite,
 que ofrece simplicidad y una buena integración con Flutter a través de la librería sqflite, que a pesar de ser desarrollada por la comunidad, es un paquete muy utilizado y
 testeado en ambientes de desarrollo. Por otra parte, solo hay que enfocarse en el modelado de las entidades y relaciones presentes en el problema, ya que una vez construida
-la base de datos localmente, esta se exporta como archivo y se consume por un servicio externo, el cuál está fuera del margen de esta tesis.\\
+la base de datos localmente, esta se exporta como archivo y se consume por un servicio externo, el cual está fuera del margen de esta tesis.\\
 También es importante mencionar que se hizo una variación en el concepto de modelo de datos propuesto inicialmente por el cliente, ya que existían conceptos redundantes que podían
 causar confusión y falta de claridad, pensando en primera instancia en los propios encuestadores, que son los futuros usuarios que utilizarán la aplicación final. En el modelo propuesto
-por el cliente existían cinco módulos los cuáles poseen una entidad sobre la cuál recogen información, y definen la información a recoger sobre su entidad correspondiente.
+por el cliente existían cinco módulos los cuales poseen una entidad sobre la cual recogen información, y definen la información a recoger sobre su entidad correspondiente.
 Los cinco módulos propuestos por el cliente y las respectivas entidades sobre las que recogen información (también pudiendo ser visualizados en la tabla \ref{tab:modulosAnteriores}) son:
 \pagebreak
 
@@ -219,18 +225,18 @@ pues ese sería el valor que tomaría este campo, en lugar de almacenar el texto
 se tiene el valor 'No visible' cuyo índice asociado sería 999, teniendo esta lista solamente 8 elementos. En cada campo de selección se especificará la lista de valores con sus índices numéricos asociados.
 \subsection{Predio}
 En el modelo de datos, \textbf{Predio} es la única entidad fuerte, o sea, la existencia de un predio no depende de la existencia de ninguna otra entidad del modelo. Estos son los campos/variables que incluye una tupla de Predio:\\\\
-\underline{idPredio}: Campo de tipo entero de 10 cifras. LLave primaria de la entidad \textbf{Predio}. Es el número de localización del predio, el cuál es único así que puede usarse como identificador.\\
-\underline{nivelPredio1}, \underline{nivelPredio2} y \underline{nivelPredio3}: Campos numéricos, aceptan decimales, los cuáles se refieren a "la
+\underline{idPredio}: Campo de tipo entero de 10 cifras. LLave primaria de la entidad \textbf{Predio}. Es el número de localización del predio, el cual es único así que puede usarse como identificador.\\
+\underline{nivelPredio1}, \underline{nivelPredio2} y \underline{nivelPredio3}: Campos numéricos, aceptan decimales, los cuales se refieren a "la
 diferencia de altura del acceso principal del edificio al punto de intersección entre la acera y el vértice"\\
 \underline{acera}: Campo de tipo entero que dice el estado de la acera de un predio. Representa el índice de la opción que se escoja de la siguiente lista de opciones: [0: 'No existe', 1: 'Bueno', 2: 'Regular', 3: 'Malo']. Por ejemplo,
 si este campo tiene valor 1 en un predio, significa que el estado de la acera de ese predio es \textbf{bueno}\\
 \underline{anchoAcera}: Campo numérico que acepta decimales. Representa el ancho de acera que hay frente al predio.\\
 \underline{observacionesTerreno}: Texto describiendo las observaciones hechas por el encuestador sobre el terreno del predio.\\\\
 \subsection{Edificio}
-Edificio es una entidad débil, la cuál posee una relación de dependencia de identificación con la entidad Predio, o sea, que una tupla de Edificio depende de la existencia de una tupla de Predio.
+Edificio es una entidad débil, la cual posee una relación de dependencia de identificación con la entidad Predio, o sea, que una tupla de Edificio depende de la existencia de una tupla de Predio.
 Estos son los campos/variables en la entidad Edificio:\\\\
 - \underline{idPredio}, \underline{noEdificio}: Llaves primarias, ambas de tipo entero. idPredio a su vez es clave foránea y apunta hacia la entidad Predio.\\
-- \underline{distrito}: Campo de tipo entero. Representa el índice del distrito al cuál pertenece el edificio, de la lista de distritos siguiente: [1: 'Carmen', 2: 'Merced', 3: 'Hospital', 4: 'Catedral', 5: 'Zapote', 6: 'San Francisco', 7: 'Uruca', 8: 'Mata Redonda', 9: 'Pavas']\\
+- \underline{distrito}: Campo de tipo entero. Representa el índice del distrito al cual pertenece el edificio, de la lista de distritos siguiente: [1: 'Carmen', 2: 'Merced', 3: 'Hospital', 4: 'Catedral', 5: 'Zapote', 6: 'San Francisco', 7: 'Uruca', 8: 'Mata Redonda', 9: 'Pavas']\\
 - \underline{cantidadPisos}: Campo de tipo entero. Cantidad de pisos del edificio.\\
 - \underline{cantidadSotanos}: Campo de tipo entero. cantidad de pisos por debajo del nivel de la acera.\\
 - \underline{antejardin}: Campo de tipo entero. Evalúa la existencia de al menos 1/3 de área verde en la zona del antejardín. Representa un índice asociado a la lista [0: 'No existe', 1: 'Si existe', 996: 'En construcción', 998: 'No aplica']\\
@@ -243,9 +249,9 @@ Estos son los campos/variables en la entidad Edificio:\\\\
 - \underline{observacionesMedidores}: Texto describiendo las observaciones acerca de los medidores del edificio.\\
 - \underline{observacionesConstruccion}: Texto describiendo las observaciones acerca de la construcción del edificio.\\
 \subsection{Propiedad}
-Propiedad es una entidad débil también, la cuál tiene relación de dependencia de identificación con la entidad Edificio, y por ende, con la entidad Predio, es decir que una propiedad depende de la existencia de un edificio y por ende de un predio.
+Propiedad es una entidad débil también, la cual tiene relación de dependencia de identificación con la entidad Edificio, y por ende, con la entidad Predio, es decir que una propiedad depende de la existencia de un edificio y por ende de un predio.
 Aquí se verán campos de tipo booleanos, o sea de Verdadero o Falso, que permitirán la existencia de otros campos. Por ejemplo, si el campo booleano 'tienePatenteLicores' está en falso, el campo 'numeroPatenteLicores' no se podrá rellenar. En el
-caso del campo booleano 'tienePermisoSalud', tres campos dependen de su valor para ser rellenados o no. También existen campos de selección múltiple, los cuáles serán almacenados en un campo de tipo texto, que incluya los valores de la selección
+caso del campo booleano 'tienePermisoSalud', tres campos dependen de su valor para ser rellenados o no. También existen campos de selección múltiple, los cuales serán almacenados en un campo de tipo texto, que incluya los valores de la selección
 separados por coma(','). Además, especificar que el campo de fecha 'fechaVigenciaPermisoSalud' en el formulario se tendrá la posibilidad de escoger desde un calendario y se verá la fecha en un formato bien definido, pero al almacenarse en la
 base de datos, este será recogido como un número entero, que tendrá el formato 'AAAAMMDD'; y por último, también existen campos inhabilitados, o sea, que no podrán ser rellenados por los encuestadores. Estos campos se dejarán en la base de datos
 para que sea posible añadirlo luego fácilmente por la entidad encargada en caso de querer hacerlo. \\

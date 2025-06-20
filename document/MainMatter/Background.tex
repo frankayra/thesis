@@ -24,7 +24,7 @@ Esta aplicación web se centra en, como ya su
 nombre lo deja saber, hacer más fácil la estructuración, visualización y el solapado de archivos que contienen información geográfica vectorial.
 Dicha información vectorial es visualizada de manera intuitiva y minimalista en un mapa con muy buen aspecto visual usando el servicio
 de mapas de MapBox \cite{mapbox}. El formato de archivo que por excelencia se utiliza para almacenar información geográfica vectorial es \textit{geojson} \cite{geojsonOfficialPage}.
-geojson.io también permite agregar metadatos a los archivos, lo cuál es una característica muy útil para esta información espacial ya almacenada en los archivos.
+geojson.io también permite agregar metadatos a los archivos, lo cual es una característica muy útil para esta información espacial ya almacenada en los archivos.
 Como se podrá observar en la siguiente figura(ver figura \ref{fig:figura4}), en un lateral de la pantalla se tiene el mapa y en el otro dos tipos de vistas, la de archivo de texto plano(formato geojson)
 y una vista tabular que es bastante útil a la hora de rellenar información sobre las entidades.
 \begin{figure}[h]
@@ -55,13 +55,13 @@ para la solución que se necesita están:
     \caption{Logo del servicio web Google My Maps.}
     \label{fig:figura5}
 \end{figure}
-Google My Maps \cite{googleMyMaps} es un subdominio del servicio Google Maps, el cuál fue creado como una funcionalidad adicional para permitir a los usuarios
+Google My Maps \cite{googleMyMaps} es un subdominio del servicio Google Maps, el cual fue creado como una funcionalidad adicional para permitir a los usuarios
 crear sus propios mapas personalizados. Este es un servicio muy parecido a geojson.io, con la diferencia de que aquí es posible agregar campos con imágenes, fechas o de Verdadero/Falso.
 También se tiene una vista tabular un poco más intuitiva, aunque aún hay condiciones del problema que no son suplidas con este servicio:
 \begin{itemize}
     \item El mapa es cargado con conexión a internet.
     \item No es posible rellenar datos sobre diferentes tuplas relacionadas a un mismo terreno.
-    \item Sigue proveyendo un formulario estático, el cuál habría que exportar e importar constantemente para preservar los datos.
+    \item Sigue proveyendo un formulario estático, el cual habría que exportar e importar constantemente para preservar los datos.
 \end{itemize}
 \begin{figure}[h]
     \centering
@@ -121,8 +121,8 @@ Pero luego de un análisis muy breve se puede observar que esta aplicación tamp
 \begin{itemize}
     \item Sigue sin ser posible establecer una relación entre un terreno y varias propiedades pertenecientes a la misma área, como lo son las propiedades o locales de diferentes pisos de un mismo edificio. Como ya se dijo, esto es un requisito básico de la naturaleza y los datos del problema.
     \item No se puede hacer ningún tipo de validación extra, que tenga en cuenta por ejemplo, que el número de localización de un predio debe tener específicamente 10 cifras, o que al activar el campo "tiene más patentes" $~$se desbloquea el campo "número de patente 2"
-    \item El campo fecha tendría que ser simulado con un campo numérico o de texto, lo cuál no es muy amigable con el usuario y da lugar a que se puedan cometer errores al rellenar este tipo de campos.
-    \item No sería posible añadir características intrínsecas de la lógica de negocio del problema, como lo es por ejemplo, que al rellenar los datos de un terreno, este pueda marcarse con otro color para ayudar a los encuestadores a tener una guía de qué terrenos han visitado hasta el momento; lo cuál es una de las razones principales por las que la aplicación solución debe incluir un mapa.
+    \item El campo fecha tendría que ser simulado con un campo numérico o de texto, lo cual no es muy amigable con el usuario y da lugar a que se puedan cometer errores al rellenar este tipo de campos.
+    \item No sería posible añadir características intrínsecas de la lógica de negocio del problema, como lo es por ejemplo, que al rellenar los datos de un terreno, este pueda marcarse con otro color para ayudar a los encuestadores a tener una guía de qué terrenos han visitado hasta el momento; lo cual es una de las razones principales por las que la aplicación solución debe incluir un mapa.
 \end{itemize}
 
 
@@ -161,7 +161,7 @@ Su arquitectura permite compartir la lógica de negocio, la interfaz de usuario 
 MAUI unifica los proyectos en una sola estructura de proyecto multiobjetivo, haciendo fácil la administración del código. Compila a código nativo de cada plataforma, accediendo directamente a las APIs nativas sin necesidad de la generación de código intermedio.
 Este framework aprovecha la gran comunidad consolidada de desarrolladores .NET y C\# y la comunidad de Xamarin que ha migrado progresivamente hacia acá.
 Hay que destacar que Visual Studio ofrece un entorno muy integrado con MAUI a este momento por lo que es una oferta tentadora dada la gran base en el lenguaje C\# proveniente de la carrera.
-Destacar el soporte nativo para patrones modernos como MVVM, lo cuál sería una gran tentativa también ya que es la arquitectura escogida para el desarrollo de la aplicación.\\\\
+Destacar el soporte nativo para patrones modernos como MVVM, lo cual sería una gran tentativa también ya que es la arquitectura escogida para el desarrollo de la aplicación.\\\\
 Desventajas:
 \begin{itemize}
     \item Aunque hereda parte de la comunidad Xamarin, su base de usuarios aún es más pequeña que Flutter o React Native en el ámbito multiplataforma.
@@ -206,7 +206,7 @@ A diferencia de otros frameworks que utilizan un puente (bridge) como se vio ant
 Además de la interfaz de usuario, Flutter permite integrar lógica de negocio, acceso a dispositivos, bases de datos, servicios en la nube y SDKs nativos, mediante canales de plataforma (platform channels) o plugins desarrollados en la propia comunidad.
 Hace unos años, desde su primera versión, el desarrollo en esta plataforma ha ido creciendo exponencialmente. Una de las ventajas más fuertes que puede tener Flutter es el respaldado por Google, con fuerte inversión continua en desarrollo y documentación.
 Muy buena documentación y Tutoriales en sus plataformas oficiales.
-Posee una interfaz de usuario declarativa y reactiva, lo cuál junto con la facilidad de depuración del código lo hacen una gran opción. Posee una gran cantidad de widgets preconstruidos para interfaz de usuario y de paquetes oficiales y de la comunidad disponibles vía pub.dev.\\\\
+Posee una interfaz de usuario declarativa y reactiva, lo cual junto con la facilidad de depuración del código lo hacen una gran opción. Posee una gran cantidad de widgets preconstruidos para interfaz de usuario y de paquetes oficiales y de la comunidad disponibles vía pub.dev.\\\\
 Desventajas:
 \begin{itemize}
     \item Aunque es una de las comunidades que más crece, aún hay menor cantidad de desarrolladores senior comparado con tecnologías como React Native o el ecosistema Android nativo.
