@@ -1,0 +1,15 @@
+img{
+        width: 300px;
+    }
+    .container{
+        display: flex;
+        flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+    }
+    .small-header{
+        font-size: x-large;
+        font-weight: 500;
+        justify-self: center;
+    }
