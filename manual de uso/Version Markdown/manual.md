@@ -168,8 +168,7 @@ En las siguientes instrucciones interactivas, se explica a detalle con imágenes
                 la aplicación en el dispositivo actual y se continúe, el nombre y los apellidos introducidos 
                 quedarán registrados en la base de datos de la aplicación, y cada vez que se exporten los datos recogidos, 
                 el nombre y los apellidos del encuestador serán adjuntados a esta base de datos exportada. Aunque se utilice la 
-                herramienta "Limpiar Base de Datos", los datos del encuestador permanecerán intactos. Si se tiene 
-                algún problema con esto, consultar la sección ___________ </p>
+                herramienta "Limpiar Base de Datos", los datos del encuestador permanecerán intactos. Si se tiene algún problema con esto, consultar la sección <a href="#cambiar-el-nombre-del-encuestador">Cambiar el nombre del encuestador</a> </p>
         </div>
         <div class="carousel-slide">
             <img src="graphics/8_pantalla_de_inicio_no_se_pudo_cargar_el_mapa.png" alt="Imagen 7">

@@ -1,14 +1,62 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <title>Ampliar imagen con CSS</title>
+  <style>
+    /* Imagen pequeña (thumbnail) */
+    .thumbnail {
+      width: 200px;
+      cursor: zoom-in;
+    }
+
+    /* Fondo negro con imagen centrada */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 8px;
+    }
+
+    /* Mostrar cuando es el target */
+    .lightbox:target {
+      display: flex;
+    }
+
+    /* Botón de cerrar */
+    .lightbox a {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      color: white;
+      font-size: 30px;
+      text-decoration: none;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <img src="../Graphics/logo.png" alt="">
-    </div>
+
+  <!-- Imagen con enlace a lightbox -->
+  <a href="#img1">
+    <img src="graphics/10_boton_importacion_exportacion.png" alt="Miniatura" class="thumbnail">
+  </a>
+
+  <!-- Imagen ampliada en lightbox -->
+  <div id="img1" class="lightbox">
+    <a href="#">&times;</a> <!-- Cerrar -->
+    <img src="graphics/10_boton_importacion_exportacion.png" alt="Imagen ampliada">
+  </div>
+
 </body>
 </html>

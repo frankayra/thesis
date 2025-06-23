@@ -1,1 +1,0 @@
-# Aclaraciones generales

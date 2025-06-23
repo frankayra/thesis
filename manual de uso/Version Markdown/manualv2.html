@@ -1,5 +1,5 @@
 <!DOCTYPE html><html><head>
-      <title>manual</title>
+      <title>manualv2</title>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       
@@ -62,8 +62,13 @@ Inventario
 <ul>
 <li><a href="#instalaci%C3%B3n">Instalación</a></li>
 <li><a href="#apariencia-y-componentes-b%C3%A1sicos">Apariencia y Componentes básicos</a></li>
-<li><a href="#botones">Botones</a></li>
+<li><a href="#importaci%C3%B3nexportaci%C3%B3n">Importación/Exportación</a>
+<ul>
 <li><a href="#importaci%C3%B3n">Importación</a></li>
+<li><a href="#exportaci%C3%B3n-de-la-base-de-datos">Exportación de la Base de Datos</a></li>
+<li><a href="#limpieza-de-la-base-de-datos">Limpieza de la Base de Datos</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#uso-del-mapa">Uso del mapa</a></li>
@@ -83,6 +88,20 @@ Inventario
 <li><a href="#m%C3%A1s-de-un-mapa-en-la-carpeta-de-mapas">Más de un mapa en la carpeta de mapas</a></li>
 <li><a href="#cambiar-el-nombre-del-encuestador">Cambiar el nombre del encuestador</a></li>
 <li><a href="#no-se-muestran-los-predios-en-el-formato-correcto-en-el-mapa">No se muestran los predios en el formato correcto en el mapa</a></li>
+<li><a href="#la-aplicaci%C3%B3n-no-abre-la-primera-vez">La aplicación no abre la primera vez</a></li>
+</ul>
+</li>
+<li><a href="#secci%C3%B3n-para-desarrolladores">Sección para desarrolladores</a>
+<ul>
+<li><a href="#formato-de-entrada-de-archivos">Formato de entrada de archivos</a>
+<ul>
+<li><a href="#mapa">Mapa</a></li>
+<li><a href="#delimitaciones">Delimitaciones</a></li>
+<li><a href="#servicio-de-maestro-de-licencias-comerciales">Servicio de Maestro de Licencias Comerciales.</a></li>
+</ul>
+</li>
+<li><a href="#estructura-de-la-base-de-datos">Estructura de la Base de Datos</a></li>
+<li><a href="#"></a></li>
 </ul>
 </li>
 </ul>
@@ -93,7 +112,14 @@ Inventario
 <p>El proceso de instalación es bastante fácil, aunque en ocasiones, en versiones de Android puede incluir un paso extra de análisis o escaneo del archivo apk.<br>
 En las siguientes instrucciones interactivas, se explica a detalle con imágenes, el proceso de instalación.</p>
 <style>
-
+  body{
+    max-width: 1000px;
+    align-content: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    justify-items: center;
+  }
     .carousel-container{
         font-family: Arial, sans-serif;
         width: fit-content;
@@ -105,63 +131,47 @@ En las siguientes instrucciones interactivas, se explica a detalle con imágenes
     }
 
     .carousel {
-      width: 400px;
+      min-width: 400px;
+      max-width: 800px;
       position: relative;
       overflow: hidden;
     }
 
     .carousel-slide {
-      display: none;
+      /* display: none; */
       text-align: center;
       padding: 20px;
+      display: flex;
+      height: fit-content;
+      break-inside: avoid;   /* moderno */
+    page-break-inside: avoid; /* compatibilidad */
+      /* flex-direction: row; */
     }
 
     .carousel-slide img {
-        max-height: 500px;
-        max-width: 100%;
-      height: auto;
       border-radius: 8px;
+      margin-right: 20px;
+      width: auto;
+      /* cursor: zoom-in; */
+      height: 300px;
+      align-self: start;
+      margin-top: 15px;
+      /* float: left; */
     }
 
     .carousel-slide p {
       margin-top: 10px;
-      font-size: 16px;
+      /* font-size: 16px; */
       text-align: start;
+      float: right;
+      max-width: 70%;
     }
 
-    .active {
-      display: block;
-    }
-
-    .controls {
-      display: flex;
-      justify-content: space-between;
-      padding: 10px;
-    }
-
-    .controls button {
-      padding: 8px 16px;
-      border: none;
-      background-color: #007bff;
-      color: white;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-
-    .controls button:hover {
-      background-color: #0056b3;
-    }
   </style>
 
 <div class="carousel-container">
-    <div class="controls">
-        <button onclick="prevSlide()">Anterior</button>
-        <p id="slidesCounter"></p>
-        <button onclick="nextSlide()">Siguiente</button>
-    </div>
     <div class="carousel">
-        <div class="carousel-slide active">
+        <div class="carousel-slide">
             <img src="graphics/1_aplicacion_en_archivos.png" alt="Imagen 1">
             <p>Aquí podemos apreciar la aplicación ya descargada. Presionamos sobre ella para comenzar 
                 el proceso de instalación</p>
@@ -191,10 +201,7 @@ En las siguientes instrucciones interactivas, se explica a detalle con imágenes
                 la aplicación en el dispositivo actual y se continúe, el nombre y los apellidos introducidos 
                 quedarán registrados en la base de datos de la aplicación, y cada vez que se exporten los datos recogidos, 
                 el nombre y los apellidos del encuestador serán adjuntados a esta base de datos exportada. Aunque se utilice la 
-                herramienta "Limpiar Base de Datos", los datos del encuestador permanecerán intactos. Si se tiene 
-                algún problema con esto, consultar la sección <a href="#cambiar-el-nombre-del-encuestador">Cambiar el nombre del encuestador</a>.
-              
-              </p>
+                herramienta "Limpiar Base de Datos", los datos del encuestador permanecerán intactos. Si se tiene algún problema con esto, consultar la sección <a href="#cambiar-el-nombre-del-encuestador">Cambiar el nombre del encuestador</a> </p>
         </div>
         <div class="carousel-slide">
             <img src="graphics/8_pantalla_de_inicio_no_se_pudo_cargar_el_mapa.png" alt="Imagen 7">
@@ -250,10 +257,54 @@ En las siguientes instrucciones interactivas, se explica a detalle con imágenes
     </div>
 </div>
 <h2 id="apariencia-y-componentes-básicos">Apariencia y Componentes básicos </h2>
-<h2 id="botones">Botones </h2>
-<h2 id="importación">Importación </h2>
+<p><strong>Nombre de la aplicación</strong>: En la esquina superior izquierda de la aplicación, en cualquier momento, saldrá "Inventario" junto a un icono de una casa pequeña.<br>
+<img src="graphics/nombre_aplicacion.png" alt="nombre aplicación"></p>
+<p><br>
+<br>
+<strong>Pestañas <code>Mapa</code> y <code>Registro</code></strong>: Todo el tiempo se puede cambiar de pestaña para acceder a la función del mapa o de registro de formularios. La pestaña activa se resaltará en color azul.<br>
+<img src="graphics/tabs.png" alt="tabs"></p>
+<p><br>
+<br>
+<strong>Botón de Importación-Exportación</strong>: Con este botón accederemos a una lista de opciones de importación/exportación de datos. Estas opciones son: <code>Importar mapa</code>, <code>Importar capa de delimitaciones</code>, <code>Exportar BD</code> y <code>Limpiar BD</code>. Este botón está en la esquina superior derecha de la aplicación.<br>
+<img src="graphics/boton_importacion_exportacion.png" alt=""></p>
+<p><br>
+<br>
+<strong>Botón de Información</strong>: Este se encuentra en la parte superior derecha de la aplicación, a la derecha del botón de importación/exportación. Este nos dará información de utilidad como ................<br>
+<img src="graphics/boton_informacion.png" alt=""></p>
+<p><br>
+<br>
+<strong>Mapa</strong>: en la región central de la aplicación, cuando la pestaña <code>Mapa</code> está activa, se podrá ver el mapa. Para la navegación sobre este, estarán disponibles los gestos generales de navegación sobre mapas en dispositivos de pantalla táctil, acercamiento/alejamiento/rotación usando dos dedos y desplazamiento usando un dedo.<br>
+<img src="graphics/mapa.png" alt=""></p>
+<p><br>
+<br>
+<strong>Botón de ubicación</strong>: En el mapa se puede apreciar un botón con un icono de objetivo en la esquina inferior derecha. Este botón se mostrará siempre que el mapa haya sido cargado correctamente y se esté mostrando, y ayuda a llevar la vista del mapa hacia la localización del usuario en tiempo real.<br>
+<img src="graphics/boton_ubicacion.png" alt=""></p>
+<p><br>
+<br>
+<strong>Formularios</strong>:<br>
+La visa de formularios se mostrará cuando la pestaña 'Registro' esté activa. Aquí se podrán ver los tres subformularios que constituyen la parte principal de la aplicación: Predio, Edificio y Propiedad. No siempre estarán visibles los tres subformularios, esto depende de varias cosas explicadas en la sección <a href="#uso-de-los-formularios">Uso de los formularios</a>.<br>
+<img src="graphics/vista_formularios.png" alt=""></p>
+<h2 id="importaciónexportación">Importación/Exportación </h2>
+<p>Las cuarto opciones de importación/exportación estarán disponibles en una lista de botones que sale al presionar el botón de importación exportación. Estas cuatro opciones se observan a continuación como mismo aparecen en la aplicación:<br>
+<img src="graphics/opciones_importacion_exportacion.png" alt=""></p>
+<h4 id="importación">Importación </h4>
+<p>Tanto en la opción de <code>Importar Mapa</code> como para <code>Importar capa de Delimitaciones</code>, al presionar en el botón correspondiente, se abrirá el selector de archivos, podremos escoger un mapa o una capa de delimitaciones en el respectivo caso, permitiendo la selección de, para el caso de un mapa, los archivos con extensión '.mbtiles' y para el caso de las delimitaciones, los archivos con extensión '.geojson'. En caso que haya un mapa ya importado, se quiera importar otro y hayan problemas, consultar la sección <a href="#m%C3%A1s-de-un-mapa-en-la-carpeta-de-mapas">Más de un mapa en la carpeta de mapas</a>. Al importar una o varias capas de delimitación, estas aparecerán en el mapa si tienen el formato correcto, el formato aceptado es el mismo que</p>
+<h4 id="exportación-de-la-base-de-datos">Exportación de la Base de Datos </h4>
+<p>Al seleccionar la opción <code>Exportar BD</code>, esta acción se realizará iinmediatamente recibiendo un mensaje de confirmación en una barra auxiliar. La ruta de exportación es fija, por lo tanto el archivo que contiene la base de datos exportada siempre estará ubicado en la carpeta 'CADIC/Exportado' en el directorio raíz del dispositivo. El resultado de esta operación deberá crear un archivo llamado 'inventario.db' en la carpeta indicada como se muestra a continuación:<br>
+<img src="graphics/exportacion_BD.png" alt=""><br>
+La base de datos al exportarse NO se elimina, por lo tanto, en caso de querer eliminarse, deberá hacerse esto de manera manual con la opción <a href="#limpieza-de-la-base-de-datos">Limpieza de la BD</a></p>
+<h4 id="limpieza-de-la-base-de-datos">Limpieza de la Base de Datos </h4>
+<p>Esta opción limpiará la base de datos, borrando TODOS los datos recogidos sobre los predios, edificios y propiedades. Esta acción no es reversible, por tal motivo se muestra un mensaje de advertencia antes de proseguir con la eliminación para confirmar que el usuario no se equivocó al presionar este botón.<br>
+<img src="graphics/mensaje_confirmacion_limpieza_BD.png" alt=""></p>
 <h1 id="uso-del-mapa">Uso del mapa </h1>
+<p>La navegación por el mapa, como ya se explicó, tiene habilitados los gestos que normalmente se usan en una navegación genérica por un mapa.</p>
+<ul>
+<li>Usando dos dedos sobre el mapa se podrá hacer un acercamiento/alejamiento "pellizcando" el mapa.</li>
+<li>También haciendo uso de dos dedos, se puede rotar el mapa, haciendo un gesto de rotación.</li>
+<li>Para desplazamiento horizontal y/o vertical, se arrastra el mapa con un dedo.</li>
+</ul>
 <h1 id="uso-de-los-formularios">Uso de los formularios </h1>
+<p>Los formularios están disponibles en la pestaña <code>Registro</code>. Como ya se dijo, existen 3 formularios, Predio, Edificio y Propiedad. Cada uno de ellos recoge información relacionada con la entidad que su nombre indica.</p>
 <h2 id="subformularios">Subformularios </h2>
 <h2 id="rellenado">Rellenado </h2>
 <h2 id="guardado">Guardado </h2>
@@ -265,6 +316,16 @@ En las siguientes instrucciones interactivas, se explica a detalle con imágenes
 <h2 id="más-de-un-mapa-en-la-carpeta-de-mapas">Más de un mapa en la carpeta de mapas </h2>
 <h2 id="cambiar-el-nombre-del-encuestador">Cambiar el nombre del encuestador </h2>
 <h2 id="no-se-muestran-los-predios-en-el-formato-correcto-en-el-mapa">No se muestran los predios en el formato correcto en el mapa </h2>
+<h2 id="la-aplicación-no-abre-la-primera-vez">La aplicación no abre la primera vez </h2>
+<p>La aplicación puede que no abra la primera vez por dos motivos, uno de ellos es que no se le ha dado permiso para manejar el almacenamiento y escritura de archivos. Esto se soluciona accediendo a <code>Configuración &gt; Aplicaciones &gt; Permisos &gt; Administrador de permisos &gt; Archivos</code>. Aquí se mostrarán las aplicaciones que pueden acceder a los archivos. Si no esta Inventario en la lista, asegúrate de que esté. Puede que la lista de aplicaciones que pueden acceder a los archivos no se muestre completa y se tenga que ir a acceder a la opción: <code>Ver más aplicaciones que pueden acceder a los archivos</code>.<br>
+El otro motivo por el cuál puede que no se muestre la aplicación es incompatibilidad con esta dada por versiones de Android personalizada por distribuidores o marcas específicas. Por lo general en estas versiones hay una ausencia de los servicios de Google (GMS) que son los que proveen la Google Play Store, Gmail, Google Maps, YouTube y todos los demás servicios de Google</p>
+<h1 id="sección-para-desarrolladores">Sección para desarrolladores </h1>
+<h2 id="formato-de-entrada-de-archivos">Formato de entrada de archivos </h2>
+<h4 id="mapa">Mapa </h4>
+<h4 id="delimitaciones">Delimitaciones </h4>
+<h4 id="servicio-de-maestro-de-licencias-comerciales">Servicio de Maestro de Licencias Comerciales. </h4>
+<h2 id="estructura-de-la-base-de-datos">Estructura de la Base de Datos </h2>
+<h2></h2>
 <script>
   let currentSlide = 0;
   const slides = document.querySelectorAll('.carousel-slide');

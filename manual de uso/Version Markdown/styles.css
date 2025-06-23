@@ -1,4 +1,12 @@
-img{
+body{
+  width: fit-content;
+  align-content: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  justify-items: center;
+}
+#imagenLogo{
         width: 300px;
     }
     .container{
@@ -12,4 +20,67 @@ img{
         font-size: x-large;
         font-weight: 500;
         justify-self: center;
+    }
+
+.carousel-container{
+        font-family: Arial, sans-serif;
+        width: fit-content;
+        justify-self: center;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.336);
+        /* background: #f2f2f2; */
+        background: white;
+    }
+
+    .carousel {
+      width: 400px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .carousel-slide {
+      /* display: none; */
+      text-align: center;
+      padding: 20px;
+    }
+
+    .carousel-slide img {
+        max-height: 500px;
+        max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      float: left;
+      margin-right: 20px;
+    }
+
+    .carousel-slide p {
+      margin-top: 10px;
+      font-size: 16px;
+      text-align: start;
+      float: right;
+      width: 100px;
+    }
+
+    .active {
+      display: block;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px;
+    }
+
+    .controls button {
+      padding: 8px 16px;
+      border: none;
+      background-color: #007bff;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .controls button:hover {
+      background-color: #0056b3;
     }
